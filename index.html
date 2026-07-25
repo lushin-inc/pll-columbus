@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLL Columbus Weekend</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f5f9; --surface:#ffffff; --text:#1a2035; --text-2:#5a6178; --text-3:#8b91a5;
+  --border:#e5e7f0; --shadow:0 4px 20px rgba(26,32,53,.07);
+  --g-itin:linear-gradient(135deg,#e5322d,#b3161f); --c-itin:#d0261f;
+  --g-sched:linear-gradient(135deg,#f0a020,#d97706); --c-sched:#d97706;
+  --g-drive:linear-gradient(135deg,#2d7ff0,#1d4ed8); --c-drive:#2563eb;
+  --g-hotel:linear-gradient(135deg,#8b5cf6,#6d28d9); --c-hotel:#7c3aed;
+  --g-pack:linear-gradient(135deg,#10b981,#047857); --c-pack:#059669;
+  --g-links:linear-gradient(135deg,#06b6d4,#0e7490); --c-links:#0891b2;
+  --g-contact:linear-gradient(135deg,#475569,#1e293b); --c-contact:#475569;
+}
+[data-theme="dark"]{
+  --bg:#12141c; --surface:#1c1f2b; --text:#eef0f7; --text-2:#a8aec2; --text-3:#767d94;
+  --border:#2a2e3f; --shadow:0 4px 20px rgba(0,0,0,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .25s,color .25s}
+a{color:inherit}
+
+/* ---------- Layout ---------- */
+.app{display:flex;min-height:100vh}
+.sidebar{width:230px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);padding:20px 14px;position:sticky;top:0;height:100vh;overflow-y:auto;transition:margin-left .25s}
+.app.nav-collapsed .sidebar{margin-left:-230px}
+.main{flex:1;min-width:0;padding:28px clamp(18px,4vw,56px) 64px}
+.topbar{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.spacer{flex:1}
+.iconbtn{width:44px;height:44px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
+.iconbtn:hover{border-color:var(--text-3)}
+
+/* ---------- Sidebar nav ---------- */
+.nav-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);font-weight:600;padding:6px 12px 14px}
+.nav a{display:flex;align-items:center;gap:11px;padding:12px 12px;border-radius:11px;text-decoration:none;font-size:14.5px;font-weight:500;color:var(--text-2);margin-bottom:2px}
+.nav a .dot{width:9px;height:9px;border-radius:3px;flex-shrink:0}
+.nav a:hover{background:var(--bg);color:var(--text)}
+.nav a.active{background:var(--bg);color:var(--text);font-weight:600}
+
+/* ---------- Pages ---------- */
+.page{display:none;max-width:880px}
+.page.active{display:block}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;opacity:.85}
+.page-title{font-size:clamp(24px,3vw,30px);font-weight:600;margin:2px 0 26px}
+.page-head{margin-bottom:4px}
+.page-head .page-title{margin-bottom:0}
+.page-head{background:var(--pg,var(--surface));color:#fff;border-radius:18px;padding:22px 26px;margin-bottom:26px;box-shadow:0 8px 26px var(--pglow,rgba(0,0,0,.12))}
+.page-head .eyebrow{color:rgba(255,255,255,.85)}
+
+/* ---------- Home ---------- */
+#home .home-head{margin:6px 0 30px}
+#home .home-head .eyebrow{color:var(--text-3)}
+#home .home-head h1{font-size:clamp(26px,3.4vw,34px);font-weight:600;color:var(--text)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.tile{border-radius:22px;padding:34px 28px;min-height:190px;display:flex;flex-direction:column;justify-content:flex-end;gap:10px;color:#fff;text-decoration:none;font-weight:600;position:relative;transition:transform .15s}
+.tile:hover{transform:translateY(-3px)}
+.tile .t-icon{font-size:30px;line-height:1}
+.tile .t-name{font-size:clamp(21px,2.2vw,26px);line-height:1.15}
+.tile.itin{background:var(--g-itin);box-shadow:0 10px 30px rgba(214,38,31,.35)}
+.tile.sched{background:var(--g-sched);box-shadow:0 10px 30px rgba(217,119,6,.35)}
+.tile.drive{background:var(--g-drive);box-shadow:0 10px 30px rgba(37,99,235,.35)}
+.tile.hotel{background:var(--g-hotel);box-shadow:0 10px 30px rgba(124,58,237,.35)}
+.tile.pack{background:var(--g-pack);box-shadow:0 10px 30px rgba(5,150,105,.35)}
+.tile.links{background:var(--g-links);box-shadow:0 10px 30px rgba(8,145,178,.35)}
+.tile.contact{background:var(--g-contact);box-shadow:0 10px 30px rgba(30,41,59,.35)}
+
+/* ---------- Cards & shared ---------- */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow)}
+.card h3{font-size:16px;font-weight:600;margin-bottom:12px}
+.muted{color:var(--text-2);font-size:14px}
+.small{color:var(--text-3);font-size:12.5px}
+.bigline{font-size:17px;font-weight:600}
+ul.plain{list-style:none}
+ul.plain li{padding:4px 0;font-size:14.5px;color:var(--text-2)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;background:var(--text);color:var(--bg);text-decoration:none;font-size:14px;font-weight:600;margin-top:12px}
+[data-theme="dark"] .btn{background:#eef0f7;color:#12141c}
+
+/* ---------- Itinerary timeline ---------- */
+.day-label{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:26px 0 12px;color:var(--accent,var(--text-3))}
+.tl{border-left:2px solid var(--border);margin-left:8px;padding-left:22px}
+.tl-item{position:relative;padding:10px 0 16px}
+.tl-item::before{content:"";position:absolute;left:-28.5px;top:17px;width:11px;height:11px;border-radius:50%;background:var(--accent,#d0261f);border:2.5px solid var(--surface)}
+.tl-time{font-size:13px;font-weight:700;color:var(--accent,#d0261f)}
+.tl-what{font-size:15.5px;font-weight:600;margin-top:1px}
+.tl-sub{font-size:13.5px;color:var(--text-2);margin-top:2px}
+.tl-sub a{color:var(--accent,#d0261f);font-weight:500}
+
+/* ---------- Schedule ---------- */
+.game{display:flex;gap:18px;align-items:flex-start}
+.game .gtime{min-width:74px;font-weight:700;font-size:17px;color:var(--c-sched)}
+.game .gtime span{display:block;font-size:12px;font-weight:500;color:var(--text-3)}
+.vs{font-size:16.5px;font-weight:600}
+.ticketbox{background:var(--bg);border-radius:12px;padding:12px 16px;margin-top:12px;font-size:13.5px;color:var(--text-2)}
+.ticketbox b{color:var(--text)}
+
+/* ---------- Packing ---------- */
+.pk-group{margin-bottom:6px}
+.pk-title{font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--c-pack);margin:20px 0 8px}
+label.pk{display:flex;align-items:center;gap:13px;padding:12px 14px;border-radius:12px;cursor:pointer;font-size:15px;background:var(--surface);border:1px solid var(--border);margin-bottom:8px}
+label.pk input{width:21px;height:21px;accent-color:var(--c-pack);flex-shrink:0}
+label.pk.done{opacity:.5}
+label.pk.done .pk-text{text-decoration:line-through}
+.pk-progress{height:10px;background:var(--border);border-radius:6px;overflow:hidden;margin:6px 0 4px}
+.pk-bar{height:100%;width:0%;background:var(--g-pack);border-radius:6px;transition:width .25s}
+
+/* ---------- Links ---------- */
+.linkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.linkcard{display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;text-decoration:none;box-shadow:var(--shadow);transition:transform .12s}
+.linkcard:hover{transform:translateY(-2px)}
+.linkcard .li{width:48px;height:48px;border-radius:13px;background:color-mix(in srgb,var(--c-links) 12%,transparent);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.linkcard .ln{font-size:15.5px;font-weight:600}
+
+/* ---------- Contact ---------- */
+.contact-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-top:1px solid var(--border);font-size:16px;font-weight:600}
+.contact-row:first-of-type{border-top:none}
+.contact-row a{text-decoration:none;color:var(--c-drive)}
+.contact-row .ci{font-size:19px}
+
+/* ---------- Mobile ---------- */
+@media (max-width:760px){
+  .sidebar{position:fixed;z-index:40;left:0;top:0;margin-left:-230px;box-shadow:0 0 40px rgba(0,0,0,.25)}
+  .app.nav-open .sidebar{margin-left:0}
+  .app.nav-collapsed .sidebar{margin-left:-230px}
+  .app.nav-open.nav-collapsed .sidebar{margin-left:0}
+  .tile{min-height:150px}
+}
+.scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:30}
+@media (max-width:760px){.app.nav-open .scrim{display:block}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="sidebar">
+    <div class="nav-eyebrow">Dan &amp; James</div>
+    <nav class="nav" id="nav">
+      <a href="#home"><span class="dot" style="background:var(--text-3)"></span>Home</a>
+      <a href="#itinerary"><span class="dot" style="background:var(--c-itin)"></span>Itinerary</a>
+      <a href="#schedule"><span class="dot" style="background:var(--c-sched)"></span>Schedule &amp; Tickets</a>
+      <a href="#drive"><span class="dot" style="background:var(--c-drive)"></span>The Drive</a>
+      <a href="#hotel"><span class="dot" style="background:var(--c-hotel)"></span>Hotel</a>
+      <a href="#packing"><span class="dot" style="background:var(--c-pack)"></span>Packing List</a>
+      <a href="#links"><span class="dot" style="background:var(--c-links)"></span>Links</a>
+      <a href="#contact"><span class="dot" style="background:var(--c-contact)"></span>PLL Contact</a>
+    </nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <div class="main">
+    <div class="topbar">
+      <button class="iconbtn" id="navToggle" title="Menu">☰</button>
+      <div class="spacer"></div>
+      <button class="iconbtn" id="themeToggle" title="Light / dark">🌙</button>
+    </div>
+
+    <!-- ================= HOME ================= -->
+    <section class="page" id="home">
+      <div class="home-head">
+        <div class="eyebrow">Dan &amp; James · Columbus, OH · Aug 1–2</div>
+        <h1>PLL Weekend Hub</h1>
+      </div>
+      <div class="tiles">
+        <a class="tile itin" href="#itinerary"><span class="t-icon">🗓️</span><span class="t-name">Itinerary</span></a>
+        <a class="tile sched" href="#schedule"><span class="t-icon">🥍</span><span class="t-name">Schedule &amp; Tickets</span></a>
+        <a class="tile drive" href="#drive"><span class="t-icon">🚗</span><span class="t-name">The Drive</span></a>
+        <a class="tile hotel" href="#hotel"><span class="t-icon">🏨</span><span class="t-name">Hotel</span></a>
+        <a class="tile pack" href="#packing"><span class="t-icon">🎒</span><span class="t-name">Packing List</span></a>
+        <a class="tile links" href="#links"><span class="t-icon">🔗</span><span class="t-name">Links</span></a>
+        <a class="tile contact" href="#contact"><span class="t-icon">📇</span><span class="t-name">PLL Contact</span></a>
+      </div>
+    </section>
+
+    <!-- ================= ITINERARY ================= -->
+    <section class="page" id="itinerary" style="--accent:var(--c-itin)">
+      <div class="page-head" style="--pg:var(--g-itin);--pglow:rgba(214,38,31,.3)">
+        <div class="eyebrow">Dan &amp; James</div>
+        <div class="page-title">Itinerary</div>
+      </div>
+
+      <div class="day-label">Saturday · August 1</div>
+      <div class="tl">
+        <div class="tl-item"><div class="tl-time">8:00 AM</div><div class="tl-what">Leave home</div>
+          <div class="tl-sub">321 E 45th St, Indianapolis → I-70 East · <a href="https://www.google.com/maps/dir/?api=1&origin=321+E+45th+St+Indianapolis+IN+46205&destination=630+Irving+Schottenstein+Dr+Columbus+OH+43210" target="_blank">Route</a></div></div>
+        <div class="tl-item"><div class="tl-time">~9:45 AM</div><div class="tl-what">Stop: Buc-ee's Huber Heights</div>
+          <div class="tl-sub">Bathroom, snacks, Supercharger on site · I-70 exit 38</div></div>
+        <div class="tl-item"><div class="tl-time">~11:15 AM</div><div class="tl-what">Arrive at Ohio State Lacrosse Stadium</div>
+          <div class="tl-sub">630 Irving Schottenstein Dr, Columbus · park and settle in</div></div>
+        <div class="tl-item"><div class="tl-time">12:30 PM</div><div class="tl-what">Denver Outlaws vs Maryland Whipsnakes</div></div>
+        <div class="tl-item"><div class="tl-time">3:00 PM</div><div class="tl-what">Carolina Chaos vs Philadelphia Waterdogs</div></div>
+        <div class="tl-item"><div class="tl-time">After final game</div><div class="tl-what">Meet &amp; Greet on the field</div>
+          <div class="tl-sub">With players from the winning team · bring the sharpie</div></div>
+        <div class="tl-item"><div class="tl-time">~6:00 PM</div><div class="tl-what">Check in at The Blackwell</div>
+          <div class="tl-sub">2110 Tuttle Park Pl · 4-minute drive from the stadium</div></div>
+        <div class="tl-item"><div class="tl-time">Evening</div><div class="tl-what">Dinner in Columbus</div></div>
+      </div>
+
+      <div class="day-label">Sunday · August 2</div>
+      <div class="tl">
+        <div class="tl-item"><div class="tl-time">~10:45 AM</div><div class="tl-what">Pack up and check out</div>
+          <div class="tl-sub">Check-out is before 12:00 PM · load the car</div></div>
+        <div class="tl-item"><div class="tl-time">~11:15 AM</div><div class="tl-what">Arrive at the stadium</div></div>
+        <div class="tl-item"><div class="tl-time">12:00 PM</div><div class="tl-what">Stars &amp; Stripes Classic</div>
+          <div class="tl-sub">Special event · Navy Seals vs Green Berets</div></div>
+        <div class="tl-item"><div class="tl-time">3:00 PM</div><div class="tl-what">New York Atlas vs California Redwoods</div></div>
+        <div class="tl-item"><div class="tl-time">After final game</div><div class="tl-what">Meet &amp; Greet on the field</div></div>
+        <div class="tl-item"><div class="tl-time">~6:00 PM</div><div class="tl-what">Drive home</div>
+          <div class="tl-sub">Optional charge at Buc-ee's on the way back · home ~9:00 PM · <a href="https://www.google.com/maps/dir/?api=1&origin=630+Irving+Schottenstein+Dr+Columbus+OH+43210&destination=321+E+45th+St+Indianapolis+IN+46205" target="_blank">Route home</a></div></div>
+      </div>
+    </section>
+
+    <!-- ================= SCHEDULE & TICKETS ================= -->
+    <section class="page" id="schedule">
+      <div class="page-head" style="--pg:var(--g-sched);--pglow:rgba(217,119,6,.3)">
+        <div class="eyebrow">Dan &amp; James</div>
+        <div class="page-title">Schedule &amp; Tickets</div>
+      </div>
+
+      <div class="day-label" style="--accent:var(--c-sched)">Saturday · August 1</div>
+      <div class="card"><div class="game"><div class="gtime">12:30<span>PM</span></div><div>
+        <div class="vs">Denver Outlaws vs Maryland Whipsnakes</div>
+        <div class="small" style="margin-top:3px">ABC · ESPN</div>
+      </div></div></div>
+      <div class="card"><div class="game"><div class="gtime">3:00<span>PM</span></div><div>
+        <div class="vs">Carolina Chaos vs Philadelphia Waterdogs</div>
+        <div class="small" style="margin-top:3px">ESPN+ · ESPN</div>
+      </div></div></div>
+      <div class="card"><div class="game"><div class="gtime">After<span>final game</span></div><div>
+        <div class="vs">Meet &amp; Greet ⭐</div>
+        <div class="small" style="margin-top:3px">On the field with players from the winning team</div>
+      </div></div>
+      <div class="ticketbox"><b>Saturday tickets:</b> 2× General Admission — Section GENADM, Row GA2 · Meet &amp; Greet — Section GA1, Row GA0, Seat 23</div></div>
+
+      <div class="day-label" style="--accent:var(--c-sched)">Sunday · August 2</div>
+      <div class="card"><div class="game"><div class="gtime">12:00<span>PM</span></div><div>
+        <div class="vs">Stars &amp; Stripes Classic</div>
+        <div class="small" style="margin-top:3px">Special event · Navy Seals vs Green Berets</div>
+      </div></div></div>
+      <div class="card"><div class="game"><div class="gtime">3:00<span>PM</span></div><div>
+        <div class="vs">New York Atlas vs California Redwoods</div>
+        <div class="small" style="margin-top:3px">ABC · ESPN</div>
+      </div></div></div>
+      <div class="card"><div class="game"><div class="gtime">After<span>final game</span></div><div>
+        <div class="vs">Meet &amp; Greet ⭐</div>
+        <div class="small" style="margin-top:3px">On the field with players from the winning team</div>
+      </div></div>
+      <div class="ticketbox"><b>Sunday tickets:</b> 2× General Admission — Section GENADM, Row GA8 · Meet &amp; Greet — Section GA1, Row GA0, Seat 9</div></div>
+
+      <div class="card">
+        <h3>Tickets are in Ticketmaster</h3>
+        <ul class="plain">
+          <li>Open the Ticketmaster app before you leave — tickets are mobile only</li>
+          <li>Account number: 1471854</li>
+          <li>Order total: $326.00 · paid in full</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= DRIVE ================= -->
+    <section class="page" id="drive">
+      <div class="page-head" style="--pg:var(--g-drive);--pglow:rgba(37,99,235,.3)">
+        <div class="eyebrow">Indy → Columbus</div>
+        <div class="page-title">The Drive</div>
+      </div>
+
+      <div class="card">
+        <h3>Route</h3>
+        <ul class="plain">
+          <li>From: 321 E 45th St, Indianapolis, IN 46205</li>
+          <li>To: Ohio State Lacrosse Stadium — 630 Irving Schottenstein Dr, Columbus, OH 43210</li>
+          <li>~178 miles, almost all I-70 East</li>
+          <li>~2 hr 45 min without a stop · ~3 hr 15 min with one</li>
+        </ul>
+        <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=321+E+45th+St+Indianapolis+IN+46205&destination=630+Irving+Schottenstein+Dr+Columbus+OH+43210" target="_blank">📍 Open route in Maps</a>
+      </div>
+
+      <div class="card">
+        <h3>Charging — Model X Long Range</h3>
+        <ul class="plain">
+          <li>178 miles is well inside a full charge — charge to 90–100% at home Friday night and you can skip the stop entirely</li>
+          <li>You'd arrive with roughly 35–40% left, enough to get to a Columbus charger anytime</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>If you want to stop anyway</h3>
+        <ul class="plain">
+          <li>Best stop: Buc-ee's Huber Heights, OH — Supercharger on site, ~110 miles in, right off I-70 (exit 38)</li>
+          <li>Backup: Meijer Supercharger — 2507 Chester Blvd, Richmond, IN, ~70 miles in</li>
+          <li>Near the stadium: Superchargers at the Greater Columbus Convention Center, ~3 miles away</li>
+        </ul>
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Buc-ee%27s+Huber+Heights+OH" target="_blank">📍 Buc-ee's in Maps</a>
+      </div>
+    </section>
+
+    <!-- ================= HOTEL ================= -->
+    <section class="page" id="hotel">
+      <div class="page-head" style="--pg:var(--g-hotel);--pglow:rgba(124,58,237,.3)">
+        <div class="eyebrow">Saturday night</div>
+        <div class="page-title">Hotel</div>
+      </div>
+
+      <div class="card">
+        <div class="bigline">The Blackwell Inn &amp; Pfahl Conference Center</div>
+        <ul class="plain" style="margin-top:10px">
+          <li>2110 Tuttle Park Pl, Columbus, OH 43210</li>
+          <li><a href="tel:6142474000" style="color:var(--c-hotel);font-weight:600">(614) 247-4000</a></li>
+          <li>0.9 miles from the stadium — about a 4-minute drive</li>
+        </ul>
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=The+Blackwell+Inn+2110+Tuttle+Park+Pl+Columbus+OH" target="_blank">📍 Open in Maps</a>
+      </div>
+
+      <div class="card">
+        <h3>Check-in / Check-out</h3>
+        <ul class="plain">
+          <li>Check in: Saturday, Aug 1 — after 3:00 PM</li>
+          <li>Check out: Sunday, Aug 2 — before 12:00 PM</li>
+          <li>One night — Saturday only</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= PACKING ================= -->
+    <section class="page" id="packing">
+      <div class="page-head" style="--pg:var(--g-pack);--pglow:rgba(5,150,105,.3)">
+        <div class="eyebrow">Dan &amp; James</div>
+        <div class="page-title">Packing List</div>
+      </div>
+
+      <div class="pk-progress"><div class="pk-bar" id="pkBar"></div></div>
+      <div class="small" id="pkCount"></div>
+      <div id="pkList">
+
+      <div class="pk-title">Essentials</div>
+      <label class="pk"><input type="checkbox" data-k="tickets"><span class="pk-text">Phones charged, Ticketmaster app signed in</span></label>
+      <label class="pk"><input type="checkbox" data-k="wallet"><span class="pk-text">Wallet + ID</span></label>
+      <label class="pk"><input type="checkbox" data-k="chargers"><span class="pk-text">Phone chargers + battery pack</span></label>
+
+      <div class="pk-title">Meet &amp; Greet</div>
+      <label class="pk"><input type="checkbox" data-k="sharpie"><span class="pk-text">Sharpies (2 — one always dies)</span></label>
+      <label class="pk"><input type="checkbox" data-k="sign"><span class="pk-text">James's jersey or ball to get signed</span></label>
+
+      <div class="pk-title">Stadium</div>
+      <label class="pk"><input type="checkbox" data-k="sunscreen"><span class="pk-text">Sunscreen</span></label>
+      <label class="pk"><input type="checkbox" data-k="hats"><span class="pk-text">Hats + sunglasses</span></label>
+      <label class="pk"><input type="checkbox" data-k="water"><span class="pk-text">Water bottles</span></label>
+      <label class="pk"><input type="checkbox" data-k="ponchos"><span class="pk-text">Rain ponchos (check the forecast)</span></label>
+      <label class="pk"><input type="checkbox" data-k="clearbag"><span class="pk-text">Clear bag — check stadium bag policy before packing a backpack</span></label>
+
+      <div class="pk-title">Overnight</div>
+      <label class="pk"><input type="checkbox" data-k="clothes"><span class="pk-text">Change of clothes for Sunday</span></label>
+      <label class="pk"><input type="checkbox" data-k="toiletries"><span class="pk-text">Toiletries</span></label>
+      <label class="pk"><input type="checkbox" data-k="meds"><span class="pk-text">Any meds</span></label>
+
+      <div class="pk-title">Car</div>
+      <label class="pk"><input type="checkbox" data-k="charge"><span class="pk-text">Charge the Tesla to 90–100% Friday night</span></label>
+      <label class="pk"><input type="checkbox" data-k="snacks"><span class="pk-text">Road snacks</span></label>
+      <label class="pk"><input type="checkbox" data-k="stick"><span class="pk-text">James's stick — wall ball between games</span></label>
+
+      </div>
+    </section>
+
+    <!-- ================= LINKS ================= -->
+    <section class="page" id="links">
+      <div class="page-head" style="--pg:var(--g-links);--pglow:rgba(8,145,178,.3)">
+        <div class="eyebrow">Dan &amp; James</div>
+        <div class="page-title">Links</div>
+      </div>
+      <div class="linkgrid">
+        <a class="linkcard" href="https://lushin-inc.github.io/pll-2026/" target="_blank"><span class="li">📊</span><span class="ln">PLL Stats Hub</span></a>
+        <a class="linkcard" href="https://pllhq.lovable.app" target="_blank"><span class="li">🥍</span><span class="ln">James PLL Hub</span></a>
+        <a class="linkcard" href="https://jameslaxchallenge.lovable.app/" target="_blank"><span class="li">🏆</span><span class="ln">James Summer Lax Challenge</span></a>
+        <a class="linkcard" href="https://premierlacrosseleague.com/schedule" target="_blank"><span class="li">🗓️</span><span class="ln">PLL Website</span></a>
+        <a class="linkcard" href="https://www.espn.com/pll/" target="_blank"><span class="li">📺</span><span class="ln">ESPN — PLL</span></a>
+        <a class="linkcard" href="https://tv.youtube.com/browse/UCw1u5DMCt1Quc-c2aruL2rQ" target="_blank"><span class="li">▶️</span><span class="ln">YouTube TV — PLL</span></a>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="page" id="contact">
+      <div class="page-head" style="--pg:var(--g-contact);--pglow:rgba(30,41,59,.3)">
+        <div class="eyebrow">PLL contact for Columbus weekend</div>
+        <div class="page-title">Travis Tiger</div>
+      </div>
+      <div class="card">
+        <div class="muted" style="margin-bottom:6px">Super helpful and responsive — typically replies same day.</div>
+        <div class="contact-row"><span class="ci">📞</span><a href="tel:3105043625">(310) 504-3625</a></div>
+        <div class="contact-row"><span class="ci">✉️</span><a href="mailto:ttiger@premierlacrosseleague.com">ttiger@premierlacrosseleague.com</a></div>
+      </div>
+      <div class="card">
+        <h3>Premier Lacrosse League</h3>
+        <div class="contact-row"><span class="ci">📞</span><a href="tel:3109281107">310-928-1107</a></div>
+        <div class="contact-row"><span class="ci">🎟️</span><span>Ticketmaster account: 1471854</span></div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},
+             set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+  /* ---- Router ---- */
+  var pages=document.querySelectorAll('.page');
+  var navLinks=document.querySelectorAll('#nav a');
+  function route(){
+    var h=(location.hash||'#home').slice(1);
+    var found=document.getElementById(h)&&document.getElementById(h).classList.contains('page');
+    if(!found)h='home';
+    pages.forEach(function(p){p.classList.toggle('active',p.id===h)});
+    navLinks.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+h)});
+    window.scrollTo(0,0);
+    if(window.innerWidth<=760)document.getElementById('app').classList.remove('nav-open');
+  }
+  window.addEventListener('hashchange',route);
+  route();
+
+  /* ---- Sidebar ---- */
+  var app=document.getElementById('app');
+  if(window.innerWidth<=760)app.classList.add('nav-collapsed');
+  document.getElementById('navToggle').addEventListener('click',function(){
+    if(window.innerWidth<=760){app.classList.toggle('nav-open');}
+    else{app.classList.toggle('nav-collapsed');}
+  });
+  document.getElementById('scrim').addEventListener('click',function(){app.classList.remove('nav-open')});
+
+  /* ---- Theme ---- */
+  var tBtn=document.getElementById('themeToggle');
+  function applyTheme(t){
+    document.documentElement.setAttribute('data-theme',t);
+    tBtn.textContent=(t==='dark')?'☀️':'🌙';
+  }
+  var saved=store.get('pll-theme');
+  applyTheme(saved==='dark'?'dark':'light');
+  tBtn.addEventListener('click',function(){
+    var next=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+    applyTheme(next);store.set('pll-theme',next);
+  });
+
+  /* ---- Packing list ---- */
+  var boxes=document.querySelectorAll('#pkList input[type=checkbox]');
+  var bar=document.getElementById('pkBar'),count=document.getElementById('pkCount');
+  function refresh(){
+    var done=0;
+    boxes.forEach(function(b){
+      b.closest('label').classList.toggle('done',b.checked);
+      if(b.checked)done++;
+    });
+    bar.style.width=Math.round(done/boxes.length*100)+'%';
+    count.textContent=done+' of '+boxes.length+' packed';
+  }
+  boxes.forEach(function(b){
+    if(store.get('pll-pk-'+b.dataset.k)==='1')b.checked=true;
+    b.addEventListener('change',function(){
+      store.set('pll-pk-'+b.dataset.k,b.checked?'1':'0');refresh();
+    });
+  });
+  refresh();
+})();
+</script>
+</body>
+</html>

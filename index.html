@@ -1,559 +1,575 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0d10">
 <title>PLL Columbus Weekend</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f4f5f9; --surface:#ffffff; --text:#1a2035; --text-2:#5a6178; --text-3:#8b91a5;
-  --border:#e5e7f0; --shadow:0 4px 20px rgba(26,32,53,.07);
-  --g-itin:linear-gradient(135deg,#e5322d,#b3161f); --c-itin:#d0261f;
-  --g-sched:linear-gradient(135deg,#f0a020,#d97706); --c-sched:#d97706;
-  --g-drive:linear-gradient(135deg,#2d7ff0,#1d4ed8); --c-drive:#2563eb;
-  --g-hotel:linear-gradient(135deg,#8b5cf6,#6d28d9); --c-hotel:#7c3aed;
-  --g-pack:linear-gradient(135deg,#10b981,#047857); --c-pack:#059669;
-  --g-links:linear-gradient(135deg,#06b6d4,#0e7490); --c-links:#0891b2;
-  --g-game:linear-gradient(135deg,#ec4899,#be185d); --c-game:#db2777;
-  --g-contact:linear-gradient(135deg,#475569,#1e293b); --c-contact:#475569;
+  --bg:#0b0d10; --panel:#14181e; --panel2:#1b2029; --line:#252c37;
+  --txt:#eef2f7; --dim:#9aa6b5; --dim2:#6c7889; --gold:#f5c518;
 }
-[data-theme="dark"]{
-  --bg:#12141c; --surface:#1c1f2b; --text:#eef0f7; --text-2:#a8aec2; --text-3:#767d94;
-  --border:#2a2e3f; --shadow:0 4px 20px rgba(0,0,0,.35);
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:60;background:rgba(11,13,16,.94);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line)}
+.topin{max-width:1180px;margin:0 auto;padding:11px 18px;display:flex;align-items:center;gap:22px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px;letter-spacing:-.01em;white-space:nowrap}
+.brand img{height:22px;width:auto;display:block}
+.nav{display:flex;gap:20px;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font-size:13.5px;font-weight:600;color:var(--dim);white-space:nowrap;padding:4px 0}
+.nav a.on{color:var(--txt);box-shadow:inset 0 -2px 0 var(--gold)}
+
+/* headers */
+.eyebrow{font-size:13px;font-weight:600;color:var(--dim2);letter-spacing:.01em}
+h1.page{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:2px 0 26px}
+h2.sec{font-size:17px;font-weight:700;letter-spacing:-.01em;margin:34px 0 14px}
+.pagehead{padding:30px 0 0}
+
+/* hub tiles */
+.hub{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;padding:34px 0 10px}
+.tile{border-radius:20px;padding:26px 22px;min-height:210px;display:flex;flex-direction:column;
+  justify-content:flex-end;color:#fff;position:relative;overflow:hidden;transition:transform .14s ease}
+.tile:active{transform:scale(.985)}
+.tile .ic{position:absolute;top:22px;left:22px;opacity:.9}
+.tile .tt{font-size:27px;font-weight:800;letter-spacing:-.025em;line-height:1.08}
+.t1{background:linear-gradient(150deg,#f5c518,#e8890b);box-shadow:0 12px 34px -14px rgba(245,197,24,.6)}
+.t1 .tt,.t1 .ic{color:#1a1408}
+.t2{background:linear-gradient(150deg,#3b82f6,#1d4ed8);box-shadow:0 12px 34px -14px rgba(59,130,246,.6)}
+.t3{background:linear-gradient(150deg,#a855f7,#6d28d9);box-shadow:0 12px 34px -14px rgba(168,85,247,.55)}
+.t4{background:linear-gradient(150deg,#10b981,#047857);box-shadow:0 12px 34px -14px rgba(16,185,129,.55)}
+.t5{background:linear-gradient(150deg,#f43f5e,#be123c);box-shadow:0 12px 34px -14px rgba(244,63,94,.5)}
+
+/* game strip */
+.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:8px 0 6px}
+.gcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px 16px}
+.gcard .when{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.03em;text-transform:uppercase}
+.gvs{display:flex;align-items:center;gap:11px;margin-top:11px}
+.gvs .lg{width:38px;height:38px;object-fit:contain}
+.gvs .nm{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.gvs .x{color:var(--dim2);font-size:12px;font-weight:700;margin:0 2px}
+
+/* search tool */
+.searchwrap{margin:6px 0 20px}
+.numdisp{background:var(--panel);border:2px solid var(--line);border-radius:18px;
+  display:flex;align-items:center;justify-content:center;height:96px;font-size:52px;font-weight:900;
+  letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.numdisp.empty{color:var(--dim2);font-size:17px;font-weight:600;letter-spacing:0}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.pad button{background:var(--panel2);border:1px solid var(--line);border-radius:16px;height:62px;
+  font-size:25px;font-weight:700;font-variant-numeric:tabular-nums;transition:background .1s}
+.pad button:active{background:#2a3240}
+.pad button.act{color:var(--gold);font-size:16px;font-weight:700}
+.txtsearch{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:15px 16px;font-size:16px;color:var(--txt);margin-top:12px;outline:none}
+.txtsearch:focus{border-color:#3b4757}
+.txtsearch::placeholder{color:var(--dim2)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 14px;
+  font-size:13px;font-weight:600;color:var(--dim)}
+.chip.on{color:#fff;border-color:transparent}
+.count{font-size:13px;color:var(--dim2);font-weight:600;margin:22px 0 10px}
+
+/* player rows */
+.plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:10px}
+.prow{display:flex;align-items:center;gap:13px;background:var(--panel);border:1px solid var(--line);
+  border-radius:15px;padding:11px 14px 11px 11px;text-align:left;width:100%;transition:border-color .12s}
+.prow:active{border-color:#3b4757}
+.prow .jn{min-width:44px;font-size:23px;font-weight:900;text-align:center;font-variant-numeric:tabular-nums;
+  letter-spacing:-.03em}
+.av{width:50px;height:50px;border-radius:50%;object-fit:cover;background:#222932;flex-shrink:0}
+.avph{width:50px;height:50px;border-radius:50%;background:#222932;flex-shrink:0;display:flex;
+  align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--dim2)}
+.pmain{min-width:0;flex:1}
+.pn{font-size:15.5px;font-weight:700;letter-spacing:-.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pm{font-size:12.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pm2{font-size:12px;color:var(--dim2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.posb{font-size:10.5px;font-weight:800;letter-spacing:.06em;padding:3px 7px;border-radius:6px;
+  background:#232a34;color:var(--dim);flex-shrink:0}
+
+/* player detail */
+.pd{border-radius:22px;padding:24px;color:#fff;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.pd img.big{width:112px;height:112px;border-radius:50%;object-fit:cover;background:rgba(0,0,0,.25);
+  border:3px solid rgba(255,255,255,.22)}
+.pd .bigph{width:112px;height:112px;border-radius:50%;background:rgba(0,0,0,.25);display:flex;
+  align-items:center;justify-content:center;font-size:34px;font-weight:900;border:3px solid rgba(255,255,255,.22)}
+.pd .jj{font-size:60px;font-weight:900;letter-spacing:-.05em;line-height:1;opacity:.95}
+.pd .nn{font-size:31px;font-weight:800;letter-spacing:-.028em;line-height:1.1}
+.pd .ss{font-size:14px;font-weight:600;opacity:.85;margin-top:3px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:11px;margin-top:16px}
+.fact{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 15px}
+.fact .k{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--dim2)}
+.fact .v{font-size:15.5px;font-weight:600;margin-top:4px;letter-spacing:-.01em}
+.note{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);
+  border-radius:12px;padding:15px 17px;margin-top:12px;font-size:14.5px;color:#d3dbe5;line-height:1.55}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:9px;margin-top:12px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center}
+.stat .sv{font-size:21px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat .sk{font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--dim2);margin-top:2px}
+.awrow{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.aw{background:rgba(245,197,24,.11);border:1px solid rgba(245,197,24,.3);color:#f7d763;
+  border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:600}
+
+/* team */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:13px}
+.tcard{border-radius:18px;padding:20px 18px;color:#fff;display:flex;flex-direction:column;
+  align-items:center;gap:11px;min-height:158px;justify-content:center}
+.tcard img{height:52px;width:auto;object-fit:contain}
+.tcard .cn{font-size:12px;font-weight:600;opacity:.8}
+.tcard .nn{font-size:19px;font-weight:800;letter-spacing:-.02em;text-align:center;line-height:1.1}
+.tcard .rec{font-size:12.5px;font-weight:700;opacity:.85;font-variant-numeric:tabular-nums}
+.thead{border-radius:22px;padding:26px 24px;color:#fff;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.thead img{height:68px;width:auto;object-fit:contain}
+.thead .cn{font-size:14px;font-weight:600;opacity:.82}
+.thead .nn{font-size:33px;font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.trophy{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.tro{background:rgba(0,0,0,.28);border-radius:999px;padding:5px 13px;font-size:12.5px;font-weight:700}
+.story p{color:#c6d0dc;font-size:15px;line-height:1.6;margin:0 0 10px}
+.seasons{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.sea{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 13px;min-width:78px}
+.sea .y{font-size:11px;font-weight:700;color:var(--dim2)}
+.sea .p{font-size:17px;font-weight:800;letter-spacing:-.02em}
+.sea .r{font-size:11px;color:var(--dim);font-weight:600}
+.poshead{font-size:11.5px;font-weight:800;letter-spacing:.09em;color:var(--dim2);margin:22px 0 9px;
+  text-transform:uppercase}
+
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--dim2);
+  text-transform:uppercase;padding:9px 8px;border-bottom:1px solid var(--line)}
+td{padding:11px 8px;border-bottom:1px solid #1c222b;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+.tname{display:flex;align-items:center;gap:9px;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
+.tname img{width:24px;height:24px;object-fit:contain}
+.tname .dot{width:4px;height:22px;border-radius:2px;flex-shrink:0}
+.here{color:var(--gold)}
+.tbl{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:6px 12px;overflow-x:auto}
+.win{color:#34d399;font-weight:700}.loss{color:#f87171;font-weight:700}
+
+/* colleges */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:12px}
+.ccard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px 16px}
+.ccard .ch{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:11px}
+.ccard .cnm{font-size:16.5px;font-weight:700;letter-spacing:-.015em}
+.ccard .ccnt{font-size:12px;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}
+.cp{display:flex;align-items:center;gap:9px;padding:6px 0;width:100%;text-align:left}
+.cp .cdot{width:3px;height:26px;border-radius:2px;flex-shrink:0}
+.cp .cnn{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.cp .cyy{font-size:11.5px;color:var(--dim2);margin-left:auto;font-variant-numeric:tabular-nums;flex-shrink:0}
+
+/* info */
+.acc{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:9px;overflow:hidden}
+.acc summary{padding:16px 18px;font-size:15.5px;font-weight:600;letter-spacing:-.01em;cursor:pointer;
+  list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:'+';font-size:20px;color:var(--dim2);font-weight:400}
+.acc[open] summary::after{content:'\2212'}
+.acc .body{padding:0 18px 17px;font-size:14.5px;color:#c6d0dc;line-height:1.6}
+.infogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.ib{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px 18px}
+.ib .k{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dim2)}
+.ib .v{font-size:15px;margin-top:6px;color:#d3dbe5;line-height:1.55}
+.ib a{color:var(--gold);font-weight:600}
+.mapimg{width:100%;border-radius:16px;margin-top:12px;border:1px solid var(--line);display:block}
+.back{font-size:13.5px;font-weight:600;color:var(--dim);padding:22px 0 4px;display:inline-block}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  .topin{padding:10px 14px;gap:14px}
+  .hub{grid-template-columns:1fr 1fr;gap:11px;padding:22px 0 6px}
+  .tile{min-height:150px;padding:18px 15px;border-radius:17px}
+  .tile .tt{font-size:20px}
+  .tile .ic{top:15px;left:15px}
+  .tile .ic svg{width:22px;height:22px}
+  h1.page{font-size:22px;margin-bottom:20px}
+  .plist{grid-template-columns:1fr}
+  .pd{padding:19px;gap:15px}
+  .pd .nn{font-size:25px}
+  .pd img.big,.pd .bigph{width:86px;height:86px}
+  .pd .jj{font-size:46px}
+  .thead .nn{font-size:26px}
+  .numdisp{height:84px;font-size:46px}
+  .pad button{height:57px}
 }
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .25s,color .25s}
-a{color:inherit}
-
-/* ---------- Layout ---------- */
-.app{display:flex;min-height:100vh}
-.sidebar{width:230px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);padding:20px 14px;position:sticky;top:0;height:100vh;overflow-y:auto;transition:margin-left .25s}
-.app.nav-collapsed .sidebar{margin-left:-230px}
-.main{flex:1;min-width:0;padding:28px clamp(18px,4vw,56px) 64px}
-.topbar{display:flex;align-items:center;gap:14px;margin-bottom:26px}
-.spacer{flex:1}
-.iconbtn{width:44px;height:44px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
-.iconbtn:hover{border-color:var(--text-3)}
-
-/* ---------- Sidebar nav ---------- */
-.nav-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);font-weight:600;padding:6px 12px 14px}
-.nav a{display:flex;align-items:center;gap:11px;padding:12px 12px;border-radius:11px;text-decoration:none;font-size:14.5px;font-weight:500;color:var(--text-2);margin-bottom:2px}
-.nav a .dot{width:9px;height:9px;border-radius:3px;flex-shrink:0}
-.nav a:hover{background:var(--bg);color:var(--text)}
-.nav a.active{background:var(--bg);color:var(--text);font-weight:600}
-
-/* ---------- Pages ---------- */
-.page{display:none;max-width:880px}
-.page.active{display:block}
-.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;opacity:.85}
-.page-title{font-size:clamp(24px,3vw,30px);font-weight:600;margin:2px 0 26px}
-.page-head{margin-bottom:4px}
-.page-head .page-title{margin-bottom:0}
-.page-head{background:var(--pg,var(--surface));color:#fff;border-radius:18px;padding:22px 26px;margin-bottom:26px;box-shadow:0 8px 26px var(--pglow,rgba(0,0,0,.12))}
-.page-head .eyebrow{color:rgba(255,255,255,.85)}
-
-/* ---------- Home ---------- */
-#home .home-head{margin:6px 0 30px}
-#home .home-head .eyebrow{color:var(--text-3)}
-#home .home-head h1{font-size:clamp(26px,3.4vw,34px);font-weight:600;color:var(--text)}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.tile{border-radius:22px;padding:34px 28px;min-height:190px;display:flex;flex-direction:column;justify-content:flex-end;gap:10px;color:#fff;text-decoration:none;font-weight:600;position:relative;transition:transform .15s}
-.tile:hover{transform:translateY(-3px)}
-.tile .t-icon{font-size:30px;line-height:1}
-.tile .t-name{font-size:clamp(21px,2.2vw,26px);line-height:1.15}
-.tile.itin{background:var(--g-itin);box-shadow:0 10px 30px rgba(214,38,31,.35)}
-.tile.sched{background:var(--g-sched);box-shadow:0 10px 30px rgba(217,119,6,.35)}
-.tile.drive{background:var(--g-drive);box-shadow:0 10px 30px rgba(37,99,235,.35)}
-.tile.hotel{background:var(--g-hotel);box-shadow:0 10px 30px rgba(124,58,237,.35)}
-.tile.pack{background:var(--g-pack);box-shadow:0 10px 30px rgba(5,150,105,.35)}
-.tile.links{background:var(--g-links);box-shadow:0 10px 30px rgba(8,145,178,.35)}
-.tile.game{background:var(--g-game);box-shadow:0 10px 30px rgba(219,39,119,.35)}
-.tile.contact{background:var(--g-contact);box-shadow:0 10px 30px rgba(30,41,59,.35)}
-
-/* ---------- Cards & shared ---------- */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow)}
-.card h3{font-size:16px;font-weight:600;margin-bottom:12px}
-.muted{color:var(--text-2);font-size:14px}
-.small{color:var(--text-3);font-size:12.5px}
-.bigline{font-size:17px;font-weight:600}
-ul.plain{list-style:none}
-ul.plain li{padding:4px 0;font-size:14.5px;color:var(--text-2)}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;background:var(--text);color:var(--bg);text-decoration:none;font-size:14px;font-weight:600;margin-top:12px}
-[data-theme="dark"] .btn{background:#eef0f7;color:#12141c}
-
-/* ---------- Itinerary timeline ---------- */
-.day-label{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:26px 0 12px;color:var(--accent,var(--text-3))}
-.tl{border-left:2px solid var(--border);margin-left:8px;padding-left:22px}
-.tl-item{position:relative;padding:10px 0 16px}
-.tl-item::before{content:"";position:absolute;left:-28.5px;top:17px;width:11px;height:11px;border-radius:50%;background:var(--accent,#d0261f);border:2.5px solid var(--surface)}
-.tl-time{font-size:13px;font-weight:700;color:var(--accent,#d0261f)}
-.tl-what{font-size:15.5px;font-weight:600;margin-top:1px}
-.tl-sub{font-size:13.5px;color:var(--text-2);margin-top:2px}
-.tl-sub a{color:var(--accent,#d0261f);font-weight:500}
-
-/* ---------- Schedule ---------- */
-.game{display:flex;gap:18px;align-items:flex-start}
-.game .gtime{min-width:74px;font-weight:700;font-size:17px;color:var(--c-sched)}
-.game .gtime span{display:block;font-size:12px;font-weight:500;color:var(--text-3)}
-.vs{font-size:16.5px;font-weight:600}
-.ticketbox{background:var(--bg);border-radius:12px;padding:12px 16px;margin-top:12px;font-size:13.5px;color:var(--text-2)}
-.ticketbox b{color:var(--text)}
-
-/* ---------- Packing ---------- */
-.pk-group{margin-bottom:6px}
-.pk-title{font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--c-pack);margin:20px 0 8px}
-label.pk{display:flex;align-items:center;gap:13px;padding:12px 14px;border-radius:12px;cursor:pointer;font-size:15px;background:var(--surface);border:1px solid var(--border);margin-bottom:8px}
-label.pk input{width:21px;height:21px;accent-color:var(--c-pack);flex-shrink:0}
-label.pk.done{opacity:.5}
-label.pk.done .pk-text{text-decoration:line-through}
-.pk-progress{height:10px;background:var(--border);border-radius:6px;overflow:hidden;margin:6px 0 4px}
-.pk-bar{height:100%;width:0%;background:var(--g-pack);border-radius:6px;transition:width .25s}
-
-.alert{background:color-mix(in srgb,#e5322d 9%,transparent);border:1px solid color-mix(in srgb,#e5322d 40%,transparent);border-radius:14px;padding:16px 18px;margin-bottom:16px}
-.alert .a-t{font-weight:700;font-size:15px;margin-bottom:4px;color:#c81e1e}
-[data-theme="dark"] .alert .a-t{color:#ff8b8b}
-.alert .a-b{font-size:14px;color:var(--text-2)}
-.kv{display:flex;gap:14px;padding:11px 0;border-top:1px solid var(--border);font-size:14.5px}
-.kv:first-of-type{border-top:none}
-.kv .kk{min-width:96px;font-weight:600;color:var(--c-game);flex-shrink:0}
-.kv .vv{color:var(--text-2)}
-.kv .vv b{color:var(--text);font-weight:600;display:block}
-
-/* ---------- Links ---------- */
-.linkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
-.linkcard{display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;text-decoration:none;box-shadow:var(--shadow);transition:transform .12s}
-.linkcard:hover{transform:translateY(-2px)}
-.linkcard .li{width:48px;height:48px;border-radius:13px;background:color-mix(in srgb,var(--c-links) 12%,transparent);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.linkcard .ln{font-size:15.5px;font-weight:600}
-
-/* ---------- Contact ---------- */
-.contact-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-top:1px solid var(--border);font-size:16px;font-weight:600}
-.contact-row:first-of-type{border-top:none}
-.contact-row a{text-decoration:none;color:var(--c-drive)}
-.contact-row .ci{font-size:19px}
-
-/* ---------- Mobile ---------- */
-@media (max-width:760px){
-  .sidebar{position:fixed;z-index:40;left:0;top:0;margin-left:-230px;box-shadow:0 0 40px rgba(0,0,0,.25)}
-  .app.nav-open .sidebar{margin-left:0}
-  .app.nav-collapsed .sidebar{margin-left:-230px}
-  .app.nav-open.nav-collapsed .sidebar{margin-left:0}
-  .tile{min-height:150px}
-}
-.scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:30}
-@media (max-width:760px){.app.nav-open .scrim{display:block}}
 </style>
 </head>
 <body>
-<div class="app" id="app">
-  <aside class="sidebar">
-    <div class="nav-eyebrow">Dan &amp; James</div>
-    <nav class="nav" id="nav">
-      <a href="#home"><span class="dot" style="background:var(--text-3)"></span>Home</a>
-      <a href="#itinerary"><span class="dot" style="background:var(--c-itin)"></span>Itinerary</a>
-      <a href="#schedule"><span class="dot" style="background:var(--c-sched)"></span>Schedule &amp; Tickets</a>
-      <a href="#drive"><span class="dot" style="background:var(--c-drive)"></span>The Drive</a>
-      <a href="#gameday"><span class="dot" style="background:var(--c-game)"></span>Gameday &amp; Parking</a>
-      <a href="#hotel"><span class="dot" style="background:var(--c-hotel)"></span>Hotel</a>
-      <a href="#packing"><span class="dot" style="background:var(--c-pack)"></span>Packing List</a>
-      <a href="#links"><span class="dot" style="background:var(--c-links)"></span>Links</a>
-      <a href="#contact"><span class="dot" style="background:var(--c-contact)"></span>PLL Contact</a>
-    </nav>
-  </aside>
-  <div class="scrim" id="scrim"></div>
 
-  <div class="main">
-    <div class="topbar">
-      <button class="iconbtn" id="navToggle" title="Menu">☰</button>
-      <div class="spacer"></div>
-      <button class="iconbtn" id="themeToggle" title="Light / dark">🌙</button>
-    </div>
+<div class="top"><div class="topin">
+  <a href="#home" class="brand"><img src="assets/logos/pll.webp" alt=""><span>Columbus</span></a>
+  <nav class="nav" id="nav">
+    <a href="#home">Home</a>
+    <a href="#find">Find a Player</a>
+    <a href="#teams">Teams</a>
+    <a href="#colleges">Colleges</a>
+    <a href="#standings">Standings</a>
+    <a href="#info">Event Info</a>
+  </nav>
+</div></div>
 
-    <!-- ================= HOME ================= -->
-    <section class="page" id="home">
-      <div class="home-head">
-        <div class="eyebrow">Dan &amp; James · Columbus, OH · Aug 1–2</div>
-        <h1>PLL Weekend Hub</h1>
-      </div>
-      <div class="tiles">
-        <a class="tile itin" href="#itinerary"><span class="t-icon">🗓️</span><span class="t-name">Itinerary</span></a>
-        <a class="tile sched" href="#schedule"><span class="t-icon">🥍</span><span class="t-name">Schedule &amp; Tickets</span></a>
-        <a class="tile drive" href="#drive"><span class="t-icon">🚗</span><span class="t-name">The Drive</span></a>
-        <a class="tile game" href="#gameday"><span class="t-icon">🎟️</span><span class="t-name">Gameday &amp; Parking</span></a>
-        <a class="tile hotel" href="#hotel"><span class="t-icon">🏨</span><span class="t-name">Hotel</span></a>
-        <a class="tile pack" href="#packing"><span class="t-icon">🎒</span><span class="t-name">Packing List</span></a>
-        <a class="tile links" href="#links"><span class="t-icon">🔗</span><span class="t-name">Links</span></a>
-        <a class="tile contact" href="#contact"><span class="t-icon">📇</span><span class="t-name">PLL Contact</span></a>
-      </div>
-    </section>
+<main id="app"></main>
 
-    <!-- ================= ITINERARY ================= -->
-    <section class="page" id="itinerary" style="--accent:var(--c-itin)">
-      <div class="page-head" style="--pg:var(--g-itin);--pglow:rgba(214,38,31,.3)">
-        <div class="eyebrow">Dan &amp; James</div>
-        <div class="page-title">Itinerary</div>
-      </div>
-
-      <div class="day-label">Saturday · August 1</div>
-      <div class="tl">
-        <div class="tl-item"><div class="tl-time">8:00 AM</div><div class="tl-what">Leave home</div>
-          <div class="tl-sub">321 E 45th St, Indianapolis → I-70 East · <a href="https://www.google.com/maps/dir/?api=1&origin=321+E+45th+St+Indianapolis+IN+46205&destination=630+Irving+Schottenstein+Dr+Columbus+OH+43210" target="_blank">Route</a></div></div>
-        <div class="tl-item"><div class="tl-time">~9:45 AM</div><div class="tl-what">Stop: Buc-ee's Huber Heights</div>
-          <div class="tl-sub">Bathroom, snacks, Supercharger on site · I-70 exit 38</div></div>
-        <div class="tl-item"><div class="tl-time">~11:15 AM</div><div class="tl-what">Arrive at Ohio State Lacrosse Stadium</div>
-          <div class="tl-sub">630 Irving Schottenstein Dr · Buckeye Lot, $10 at the gate · <a href="#gameday">Parking &amp; gates</a></div></div>
-        <div class="tl-item"><div class="tl-time">11:30 AM</div><div class="tl-what">Gates open</div>
-          <div class="tl-sub">West side of the stadium · 60 minutes before first faceoff</div></div>
-        <div class="tl-item"><div class="tl-time">12:30 PM</div><div class="tl-what">Denver Outlaws vs Maryland Whipsnakes</div></div>
-        <div class="tl-item"><div class="tl-time">3:00 PM</div><div class="tl-what">Carolina Chaos vs Philadelphia Waterdogs</div></div>
-        <div class="tl-item"><div class="tl-time">After final game</div><div class="tl-what">Meet &amp; Greet on the field</div>
-          <div class="tl-sub">With players from the winning team · bring the sharpie</div></div>
-        <div class="tl-item"><div class="tl-time">~6:00 PM</div><div class="tl-what">Check in at The Blackwell</div>
-          <div class="tl-sub">2110 Tuttle Park Pl · 4-minute drive from the stadium</div></div>
-        <div class="tl-item"><div class="tl-time">Evening</div><div class="tl-what">Dinner in Columbus</div></div>
-      </div>
-
-      <div class="day-label">Sunday · August 2</div>
-      <div class="tl">
-        <div class="tl-item"><div class="tl-time">~10:45 AM</div><div class="tl-what">Pack up and check out</div>
-          <div class="tl-sub">Check-out is before 12:00 PM · load the car</div></div>
-        <div class="tl-item"><div class="tl-time">~10:45 AM</div><div class="tl-what">Arrive at the stadium</div>
-          <div class="tl-sub">Earlier than Saturday — the Stars &amp; Stripes fan fest runs outside the gates</div></div>
-        <div class="tl-item"><div class="tl-time">11:00 AM</div><div class="tl-what">Gates open</div>
-          <div class="tl-sub">60 minutes before the noon faceoff</div></div>
-        <div class="tl-item"><div class="tl-time">12:00 PM</div><div class="tl-what">Stars &amp; Stripes Classic</div>
-          <div class="tl-sub">Special event · Navy Seals vs Green Berets</div></div>
-        <div class="tl-item"><div class="tl-time">3:00 PM</div><div class="tl-what">New York Atlas vs California Redwoods</div></div>
-        <div class="tl-item"><div class="tl-time">After final game</div><div class="tl-what">Meet &amp; Greet on the field</div></div>
-        <div class="tl-item"><div class="tl-time">~6:00 PM</div><div class="tl-what">Drive home</div>
-          <div class="tl-sub">Optional charge at Buc-ee's on the way back · home ~9:00 PM · <a href="https://www.google.com/maps/dir/?api=1&origin=630+Irving+Schottenstein+Dr+Columbus+OH+43210&destination=321+E+45th+St+Indianapolis+IN+46205" target="_blank">Route home</a></div></div>
-      </div>
-    </section>
-
-    <!-- ================= SCHEDULE & TICKETS ================= -->
-    <section class="page" id="schedule">
-      <div class="page-head" style="--pg:var(--g-sched);--pglow:rgba(217,119,6,.3)">
-        <div class="eyebrow">Dan &amp; James</div>
-        <div class="page-title">Schedule &amp; Tickets</div>
-      </div>
-
-      <div class="day-label" style="--accent:var(--c-sched)">Saturday · August 1</div>
-      <div class="card"><div class="game"><div class="gtime">12:30<span>PM</span></div><div>
-        <div class="vs">Denver Outlaws vs Maryland Whipsnakes</div>
-        <div class="small" style="margin-top:3px">ABC · ESPN</div>
-      </div></div></div>
-      <div class="card"><div class="game"><div class="gtime">3:00<span>PM</span></div><div>
-        <div class="vs">Carolina Chaos vs Philadelphia Waterdogs</div>
-        <div class="small" style="margin-top:3px">ESPN+ · ESPN</div>
-      </div></div></div>
-      <div class="card"><div class="game"><div class="gtime">After<span>final game</span></div><div>
-        <div class="vs">Meet &amp; Greet ⭐</div>
-        <div class="small" style="margin-top:3px">On the field with players from the winning team</div>
-      </div></div>
-      <div class="ticketbox"><b>Saturday tickets:</b> 2× General Admission — Section GENADM, Row GA2 · Meet &amp; Greet — Section GA1, Row GA0, Seat 23</div></div>
-
-      <div class="day-label" style="--accent:var(--c-sched)">Sunday · August 2</div>
-      <div class="card"><div class="game"><div class="gtime">12:00<span>PM</span></div><div>
-        <div class="vs">Stars &amp; Stripes Classic</div>
-        <div class="small" style="margin-top:3px">Special event · Navy Seals vs Green Berets</div>
-      </div></div></div>
-      <div class="card"><div class="game"><div class="gtime">3:00<span>PM</span></div><div>
-        <div class="vs">New York Atlas vs California Redwoods</div>
-        <div class="small" style="margin-top:3px">ABC · ESPN</div>
-      </div></div></div>
-      <div class="card"><div class="game"><div class="gtime">After<span>final game</span></div><div>
-        <div class="vs">Meet &amp; Greet ⭐</div>
-        <div class="small" style="margin-top:3px">On the field with players from the winning team</div>
-      </div></div>
-      <div class="ticketbox"><b>Sunday tickets:</b> 2× General Admission — Section GENADM, Row GA8 · Meet &amp; Greet — Section GA1, Row GA0, Seat 9</div></div>
-
-      <div class="card">
-        <h3>Tickets are in Ticketmaster</h3>
-        <ul class="plain">
-          <li>Tickets are mobile only — load them before you leave</li>
-          <li>PLL app: open the <b>+More</b> menu and tap "My Tickets"</li>
-          <li>The Gameday Hub in the PLL app is powered by Ticketmaster</li>
-          <li>Account number: 1471854</li>
-          <li>Order total: $326.00 · paid in full</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ================= DRIVE ================= -->
-    <section class="page" id="drive">
-      <div class="page-head" style="--pg:var(--g-drive);--pglow:rgba(37,99,235,.3)">
-        <div class="eyebrow">Indy → Columbus</div>
-        <div class="page-title">The Drive</div>
-      </div>
-
-      <div class="card">
-        <h3>Route</h3>
-        <ul class="plain">
-          <li>From: 321 E 45th St, Indianapolis, IN 46205</li>
-          <li>To: Ohio State Lacrosse Stadium — 630 Irving Schottenstein Dr, Columbus, OH 43210</li>
-          <li>~178 miles, almost all I-70 East</li>
-          <li>~2 hr 45 min without a stop · ~3 hr 15 min with one</li>
-        </ul>
-        <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=321+E+45th+St+Indianapolis+IN+46205&destination=630+Irving+Schottenstein+Dr+Columbus+OH+43210" target="_blank">📍 Open route in Maps</a>
-      </div>
-
-      <div class="card">
-        <h3>Charging — Model X Long Range</h3>
-        <ul class="plain">
-          <li>178 miles is well inside a full charge — charge to 90–100% at home Friday night and you can skip the stop entirely</li>
-          <li>You'd arrive with roughly 35–40% left, enough to get to a Columbus charger anytime</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>If you want to stop anyway</h3>
-        <ul class="plain">
-          <li>Best stop: Buc-ee's Huber Heights, OH — Supercharger on site, ~110 miles in, right off I-70 (exit 38)</li>
-          <li>Backup: Meijer Supercharger — 2507 Chester Blvd, Richmond, IN, ~70 miles in</li>
-          <li>Near the stadium: Superchargers at the Greater Columbus Convention Center, ~3 miles away</li>
-        </ul>
-        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Buc-ee%27s+Huber+Heights+OH" target="_blank">📍 Buc-ee's in Maps</a>
-      </div>
-    </section>
-
-
-    <!-- ================= GAMEDAY ================= -->
-    <section class="page" id="gameday">
-      <div class="page-head" style="--pg:var(--g-game);--pglow:rgba(219,39,119,.3)">
-        <div class="eyebrow">Ohio State Lacrosse Stadium</div>
-        <div class="page-title">Gameday &amp; Parking</div>
-      </div>
-
-      <div class="alert">
-        <div class="a-t">Lacrosse balls are not allowed in</div>
-        <div class="a-b">Sticks are fine, balls are not. Bring James's stick or jersey to get signed instead of a ball — and save wall ball for the hotel lot, not between games.</div>
-      </div>
-
-      <div class="card">
-        <h3>Parking — $10, pay at arrival</h3>
-        <div class="kv"><span class="kk">Buckeye Lot</span><span class="vv"><b>$10 · on-site</b>North of the stadium, off Fred Taylor Dr</span></div>
-        <div class="kv"><span class="kk">Gray Lot</span><span class="vv"><b>$10</b>South, off Irving Schottenstein Dr</span></div>
-        <div class="kv"><span class="kk">Bring</span><span class="vv"><b>$20 cash</b>Both days, in case cards are slow at the booth</span></div>
-        <div class="kv"><span class="kk">Rideshare</span><span class="vv"><b>Irving Schottenstein Dr</b>Drop-off and pick-up right by the entrance</span></div>
-        <div class="kv"><span class="kk">Bus</span><span class="vv"><b>Route 1</b>To Olentangy River Rd &amp; Ackerman Rd / Burnbrae Ave</span></div>
-        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=630+Irving+Schottenstein+Dr+Columbus+OH+43210" target="_blank">📍 630 Irving Schottenstein Dr</a>
-      </div>
-
-      <div class="card">
-        <h3>Gates open 60 minutes before first faceoff</h3>
-        <div class="kv"><span class="kk">Location</span><span class="vv"><b>West side of the stadium</b></span></div>
-        <div class="kv"><span class="kk">Saturday</span><span class="vv"><b>11:30 AM</b>First faceoff 12:30 PM</span></div>
-        <div class="kv"><span class="kk">Sunday</span><span class="vv"><b>11:00 AM</b>Stars &amp; Stripes Classic at 12:00 PM</span></div>
-      </div>
-
-      <div class="card">
-        <h3>Bag policy</h3>
-        <ul class="plain">
-          <li>Clear bags up to 12" x 12" x 6"</li>
-          <li>Wristlet or handheld wallet up to 6.5" x 4.5", with or without a strap</li>
-          <li>Lacrosse sticks allowed — lacrosse balls are not</li>
-          <li>Full prohibited items list lives in the Gameday Hub</li>
-        </ul>
-        <div class="small" style="margin-top:10px">Water bottles and folding chairs still aren't spelled out — worth a text to Guest Services if you want them.</div>
-      </div>
-
-      <div class="card">
-        <h3>On-site — worth getting there early</h3>
-        <ul class="plain">
-          <li><b>Sunday:</b> Stars &amp; Stripes fan fest just outside the gates before the noon game</li>
-          <li>Fastest Shot Challenge — radar clocks your shot</li>
-          <li>Whirlpool Advantage Dive — recreate the game-saving play</li>
-          <li>Merch: Nike jerseys and Flagship Trading Cards</li>
-          <li>Food and drink are sold on-site, so the cooler can stay in the car</li>
-          <li>Sign in to PLL Nation before gameday to be entered to win a player-used Cascade helmet</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Guest Services</h3>
-        <ul class="plain">
-          <li>Guest Services Tent on-site</li>
-          <li>Or text the PLL team at <a href="tel:4242574467" style="color:var(--c-game);font-weight:600">(424) 257-4467</a></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ================= HOTEL ================= -->
-    <section class="page" id="hotel">
-      <div class="page-head" style="--pg:var(--g-hotel);--pglow:rgba(124,58,237,.3)">
-        <div class="eyebrow">Saturday night</div>
-        <div class="page-title">Hotel</div>
-      </div>
-
-      <div class="card">
-        <div class="bigline">The Blackwell Inn &amp; Pfahl Conference Center</div>
-        <ul class="plain" style="margin-top:10px">
-          <li>2110 Tuttle Park Pl, Columbus, OH 43210</li>
-          <li><a href="tel:6142474000" style="color:var(--c-hotel);font-weight:600">(614) 247-4000</a></li>
-          <li>0.9 miles from the stadium — about a 4-minute drive</li>
-        </ul>
-        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=The+Blackwell+Inn+2110+Tuttle+Park+Pl+Columbus+OH" target="_blank">📍 Open in Maps</a>
-      </div>
-
-      <div class="card">
-        <h3>Check-in / Check-out</h3>
-        <ul class="plain">
-          <li>Check in: Saturday, Aug 1 — after 3:00 PM</li>
-          <li>Check out: Sunday, Aug 2 — before 12:00 PM</li>
-          <li>One night — Saturday only</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ================= PACKING ================= -->
-    <section class="page" id="packing">
-      <div class="page-head" style="--pg:var(--g-pack);--pglow:rgba(5,150,105,.3)">
-        <div class="eyebrow">Dan &amp; James</div>
-        <div class="page-title">Packing List</div>
-      </div>
-
-      <div class="pk-progress"><div class="pk-bar" id="pkBar"></div></div>
-      <div class="small" id="pkCount"></div>
-      <div id="pkList">
-
-      <div class="pk-title">Essentials</div>
-      <label class="pk"><input type="checkbox" data-k="tickets"><span class="pk-text">Phones charged · PLL app signed in, tickets loaded</span></label>
-      <label class="pk"><input type="checkbox" data-k="wallet"><span class="pk-text">Wallet + ID</span></label>
-      <label class="pk"><input type="checkbox" data-k="chargers"><span class="pk-text">Phone chargers + battery pack</span></label>
-
-      <div class="pk-title">Meet &amp; Greet</div>
-      <label class="pk"><input type="checkbox" data-k="sharpie"><span class="pk-text">Sharpies (2 — one always dies)</span></label>
-      <label class="pk"><input type="checkbox" data-k="sign"><span class="pk-text">James's jersey or stick to get signed — balls aren't allowed in</span></label>
-
-      <div class="pk-title">Stadium</div>
-      <label class="pk"><input type="checkbox" data-k="sunscreen"><span class="pk-text">Sunscreen</span></label>
-      <label class="pk"><input type="checkbox" data-k="hats"><span class="pk-text">Hats + sunglasses</span></label>
-      <label class="pk"><input type="checkbox" data-k="water"><span class="pk-text">Water bottles</span></label>
-      <label class="pk"><input type="checkbox" data-k="ponchos"><span class="pk-text">Rain ponchos — 85% rain both days, and umbrellas don't get in</span></label>
-      <label class="pk"><input type="checkbox" data-k="rainjacket"><span class="pk-text">Rain jackets — one each</span></label>
-      <label class="pk"><input type="checkbox" data-k="shoes2"><span class="pk-text">Second pair of shoes each — Saturday's won't dry overnight</span></label>
-      <label class="pk"><input type="checkbox" data-k="clearbag"><span class="pk-text">Clear bag, 12" x 12" x 6" max — no backpacks</span></label>
-
-      <div class="pk-title">Overnight</div>
-      <label class="pk"><input type="checkbox" data-k="clothes"><span class="pk-text">Change of clothes for Sunday</span></label>
-      <label class="pk"><input type="checkbox" data-k="toiletries"><span class="pk-text">Toiletries</span></label>
-      <label class="pk"><input type="checkbox" data-k="meds"><span class="pk-text">Any meds</span></label>
-
-      <div class="pk-title">Car</div>
-      <label class="pk"><input type="checkbox" data-k="charge"><span class="pk-text">Charge the Tesla to 90–100% Friday night</span></label>
-      <label class="pk"><input type="checkbox" data-k="snacks"><span class="pk-text">Road snacks</span></label>
-      <label class="pk"><input type="checkbox" data-k="stick"><span class="pk-text">James's stick — allowed inside, but leave the balls in the car</span></label>
-      <label class="pk"><input type="checkbox" data-k="parkcash"><span class="pk-text">$20 cash for parking — $10 a day</span></label>
-
-      </div>
-    </section>
-
-    <!-- ================= LINKS ================= -->
-    <section class="page" id="links">
-      <div class="page-head" style="--pg:var(--g-links);--pglow:rgba(8,145,178,.3)">
-        <div class="eyebrow">Dan &amp; James</div>
-        <div class="page-title">Links</div>
-      </div>
-      <div class="linkgrid">
-        <a class="linkcard" href="https://lushin-inc.github.io/pll-2026/" target="_blank"><span class="li">📊</span><span class="ln">PLL Stats Hub</span></a>
-        <a class="linkcard" href="https://pllhq.lovable.app" target="_blank"><span class="li">🥍</span><span class="ln">James PLL Hub</span></a>
-        <a class="linkcard" href="https://jameslaxchallenge.lovable.app/" target="_blank"><span class="li">🏆</span><span class="ln">James Summer Lax Challenge</span></a>
-        <a class="linkcard" href="https://premierlacrosseleague.com/schedule" target="_blank"><span class="li">🗓️</span><span class="ln">PLL Website</span></a>
-        <a class="linkcard" href="https://www.espn.com/pll/" target="_blank"><span class="li">📺</span><span class="ln">ESPN — PLL</span></a>
-        <a class="linkcard" href="https://tv.youtube.com/browse/UCw1u5DMCt1Quc-c2aruL2rQ" target="_blank"><span class="li">▶️</span><span class="ln">YouTube TV — PLL</span></a>
-      </div>
-    </section>
-
-    <!-- ================= CONTACT ================= -->
-    <section class="page" id="contact">
-      <div class="page-head" style="--pg:var(--g-contact);--pglow:rgba(30,41,59,.3)">
-        <div class="eyebrow">PLL contact for Columbus weekend</div>
-        <div class="page-title">Travis Tiger</div>
-      </div>
-      <div class="card">
-        <div class="muted" style="margin-bottom:6px">Super helpful and responsive — typically replies same day.</div>
-        <div class="contact-row"><span class="ci">📞</span><a href="tel:3105043625">(310) 504-3625</a></div>
-        <div class="contact-row"><span class="ci">✉️</span><a href="mailto:ttiger@premierlacrosseleague.com">ttiger@premierlacrosseleague.com</a></div>
-      </div>
-      <div class="card">
-        <h3>Guest Services — gameday</h3>
-        <div class="muted" style="margin-bottom:6px">For app logins, ticket problems, or finding anything in the stadium.</div>
-        <div class="contact-row"><span class="ci">💬</span><a href="tel:4242574467">(424) 257-4467</a></div>
-        <div class="contact-row"><span class="ci">⛺</span><span>Guest Services Tent, on-site</span></div>
-      </div>
-      <div class="card">
-        <h3>Premier Lacrosse League</h3>
-        <div class="contact-row"><span class="ci">📞</span><a href="tel:3109281107">310-928-1107</a></div>
-        <div class="contact-row"><span class="ci">🎟️</span><span>Ticketmaster account: 1471854</span></div>
-      </div>
-    </section>
-
-  </div>
-</div>
-
+<script src="assets/data.js"></script>
 <script>
-(function(){
-  var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},
-             set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const D=window.DATA, T=D.teams, P=D.players;
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const logo=t=>'assets/logos/'+T[t].logo;
+const grad=t=>`linear-gradient(150deg,${T[t].c2},${T[t].c1})`;
+const initials=n=>n.split(' ').filter(x=>x.length>1).slice(0,2).map(x=>x[0]).join('');
+const POSNAME={A:'Attack',M:'Midfield',D:'Defense',G:'Goalie',LSM:'Long-Stick Midfield',SSDM:'Short-Stick D-Midfield',FO:'Faceoff'};
+const POSORDER=['A','M','SSDM','FO','LSM','D','G'];
+const TEAMLIST=Object.keys(T);
+const REC={};D.standings.East.concat(D.standings.West).forEach(r=>REC[r[0]]=r[1]+'-'+r[2]);
+const gameOf=t=>D.games.find(g=>g.teams.includes(t));
+const gameLabel=g=>g.day+' &middot; '+g.time;
+const shortTeam=n=>T[n]?T[n].city+' '+T[n].nick:n;
 
-  /* ---- Router ---- */
-  var pages=document.querySelectorAll('.page');
-  var navLinks=document.querySelectorAll('#nav a');
-  function route(){
-    var h=(location.hash||'#home').slice(1);
-    var found=document.getElementById(h)&&document.getElementById(h).classList.contains('page');
-    if(!found)h='home';
-    pages.forEach(function(p){p.classList.toggle('active',p.id===h)});
-    navLinks.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+h)});
-    window.scrollTo(0,0);
-    if(window.innerWidth<=760)document.getElementById('app').classList.remove('nav-open');
-  }
-  window.addEventListener('hashchange',route);
-  route();
+function avatar(p,cls){
+  return p.img ? `<img class="${cls==='big'?'big':'av'}" src="assets/photos/${esc(p.img)}" alt="" loading="lazy">`
+               : `<div class="${cls==='big'?'bigph':'avph'}">${esc(initials(p.n))}</div>`;
+}
+function playerRow(p){
+  return `<button class="prow" onclick="go('#p/${p.id}')">
+    <div class="jn" style="color:${T[p.team].c2}">${p.j}</div>
+    ${avatar(p)}
+    <div class="pmain">
+      <div class="pn">${esc(p.n)}${p.res?' <span style="font-size:11px;color:#6c7889;font-weight:600">RES</span>':''}</div>
+      <div class="pm">${esc(T[p.team].city)} &middot; ${esc(p.college)} '${p.grad.slice(2)}</div>
+      <div class="pm2">${esc(p.home)}</div>
+    </div>
+    <div class="posb">${p.pos}</div>
+  </button>`;
+}
+const teamDot=t=>`<span class="dot" style="background:${T[t]?T[t].c2:'#39424f'}"></span>`;
 
-  /* ---- Sidebar ---- */
-  var app=document.getElementById('app');
-  if(window.innerWidth<=760)app.classList.add('nav-collapsed');
-  document.getElementById('navToggle').addEventListener('click',function(){
-    if(window.innerWidth<=760){app.classList.toggle('nav-open');}
-    else{app.classList.toggle('nav-collapsed');}
-  });
-  document.getElementById('scrim').addEventListener('click',function(){app.classList.remove('nav-open')});
+/* HOME */
+function vHome(){
+  const I={
+    find:'<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+    teams:'<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    col:'<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>',
+    std:'<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>',
+    info:'<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
+  };
+  const ic=p=>`<span class="ic">${p}</span>`;
+  return `<div class="wrap">
+    <div class="hub">
+      <a class="tile t1" href="#find">${ic(I.find)}<div class="tt">Find a<br>Player</div></a>
+      <a class="tile t2" href="#teams">${ic(I.teams)}<div class="tt">Teams</div></a>
+      <a class="tile t3" href="#colleges">${ic(I.col)}<div class="tt">Colleges</div></a>
+      <a class="tile t4" href="#standings">${ic(I.std)}<div class="tt">Standings</div></a>
+      <a class="tile t5" href="#info">${ic(I.info)}<div class="tt">Event Info</div></a>
+    </div>
+    <h2 class="sec">This weekend at Ohio State</h2>
+    <div class="games">${gameCards()}</div>
+  </div>`;
+}
+function gameCards(extra){
+  return D.games.map(g=>`<a class="gcard" href="#matchup/${encodeURIComponent(g.teams[0])}">
+      <div class="when">${gameLabel(g)}</div>
+      <div class="gvs">
+        <img class="lg" src="${logo(g.teams[0])}" alt=""><span class="nm">${esc(T[g.teams[0]].city)}</span>
+        <span class="x">vs</span>
+        <img class="lg" src="${logo(g.teams[1])}" alt=""><span class="nm">${esc(T[g.teams[1]].city)}</span>
+      </div>
+      ${extra?`<div class="pm2" style="margin-top:9px">${REC[g.teams[0]]} &nbsp;&middot;&nbsp; ${REC[g.teams[1]]}</div>`:''}
+    </a>`).join('');
+}
 
-  /* ---- Theme ---- */
-  var tBtn=document.getElementById('themeToggle');
-  function applyTheme(t){
-    document.documentElement.setAttribute('data-theme',t);
-    tBtn.textContent=(t==='dark')?'☀️':'🌙';
-  }
-  var saved=store.get('pll-theme');
-  applyTheme(saved==='dark'?'dark':'light');
-  tBtn.addEventListener('click',function(){
-    var next=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
-    applyTheme(next);store.set('pll-theme',next);
-  });
+/* FIND */
+let F={num:'',txt:'',team:''};
+function vFind(){
+  return `<div class="wrap"><div class="pagehead">
+    <h1 class="page">Find a Player</h1></div>
+    <div class="searchwrap">
+      <div class="numdisp ${F.num?'':'empty'}" id="disp">${F.num||'Tap a number'}</div>
+      <div class="pad">
+        ${[1,2,3,4,5,6,7,8,9].map(n=>`<button onclick="dig('${n}')">${n}</button>`).join('')}
+        <button class="act" onclick="clr()">Clear</button>
+        <button onclick="dig('0')">0</button>
+        <button class="act" onclick="del()">&#9003;</button>
+      </div>
+      <input class="txtsearch" id="tx" placeholder="or search name, college, hometown, high school" value="${esc(F.txt)}" oninput="F.txt=this.value;paint()">
+      <div class="chips" id="chips"></div>
+    </div>
+    <div id="res"></div></div>`;
+}
+function dig(n){ if(F.num.length<2) F.num+=n; paint(); }
+function del(){ F.num=F.num.slice(0,-1); paint(); }
+function clr(){ F.num=''; F.txt=''; F.team=''; const t=$('#tx'); if(t)t.value=''; paint(); }
+function setTeam(t){ F.team = F.team===t?'':t; paint(); }
+function matches(){
+  const q=F.txt.trim().toLowerCase();
+  return P.filter(p=>{
+    if(F.team && p.team!==F.team) return false;
+    if(F.num && !String(p.j).startsWith(F.num)) return false;
+    if(q){
+      const hay=(p.n+' '+p.college+' '+p.home+' '+p.hs+' '+T[p.team].city+' '+T[p.team].nick+' '+POSNAME[p.pos]).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  }).sort((a,b)=>a.j-b.j || a.n.localeCompare(b.n));
+}
+function paint(){
+  const d=$('#disp'); if(!d) return;
+  d.textContent=F.num||'Tap a number'; d.className='numdisp'+(F.num?'':' empty');
+  $('#chips').innerHTML=TEAMLIST.map(t=>`<button class="chip ${F.team===t?'on':''}"
+    style="${F.team===t?`background:${T[t].c2};`:''}" onclick="setTeam('${t}')">${esc(T[t].city)}</button>`).join('');
+  const m=matches();
+  $('#res').innerHTML=(F.num||F.txt||F.team)
+    ? `<div class="count">${m.length} player${m.length===1?'':'s'}</div><div class="plist">${m.map(playerRow).join('')}</div>${m.length?'':'<div class="count">Nobody on this weekend&rsquo;s rosters matches that.</div>'}`
+    : `<div class="count">All ${P.length} players on this weekend&rsquo;s rosters</div><div class="plist">${P.slice().sort((a,b)=>a.j-b.j||a.n.localeCompare(b.n)).map(playerRow).join('')}</div>`;
+}
 
-  /* ---- Packing list ---- */
-  var boxes=document.querySelectorAll('#pkList input[type=checkbox]');
-  var bar=document.getElementById('pkBar'),count=document.getElementById('pkCount');
-  function refresh(){
-    var done=0;
-    boxes.forEach(function(b){
-      b.closest('label').classList.toggle('done',b.checked);
-      if(b.checked)done++;
-    });
-    bar.style.width=Math.round(done/boxes.length*100)+'%';
-    count.textContent=done+' of '+boxes.length+' packed';
-  }
-  boxes.forEach(function(b){
-    if(store.get('pll-pk-'+b.dataset.k)==='1')b.checked=true;
-    b.addEventListener('change',function(){
-      store.set('pll-pk-'+b.dataset.k,b.checked?'1':'0');refresh();
-    });
-  });
-  refresh();
-})();
+/* PLAYER */
+function vPlayer(id){
+  const p=P[+id]; if(!p) return vHome();
+  const g=gameOf(p.team), opp=g.teams[0]===p.team?g.teams[1]:g.teams[0];
+  const f=[];
+  f.push(['College',esc(p.college)+" '"+p.grad.slice(2)]);
+  if(p.home) f.push(['Hometown',esc(p.home)]);
+  if(p.hs) f.push(['High School',esc(p.hs)]);
+  if(p.ht) f.push(['Height',esc(p.ht)+(p.wt?', '+Math.round(+p.wt)+' lbs':'')]);
+  if(p.hand) f.push(['Shoots',p.hand==='L'?'Left':'Right']);
+  f.push(['Playing',gameLabel(g)+' vs. '+esc(T[opp].city)]);
+  const keys=Object.keys(p.s);
+  const stats = keys.length
+    ? `<div class="statgrid">${keys.map(k=>`<div class="stat"><div class="sv">${esc(p.s[k])}</div><div class="sk">${k}</div></div>`).join('')}</div>`
+    : `<div class="note">No game action yet this season.</div>`;
+  return `<div class="wrap">
+    <a class="back" href="#find">&larr; Back to search</a>
+    <div class="pd" style="background:${grad(p.team)}">
+      ${avatar(p,'big')}
+      <div style="flex:1;min-width:180px">
+        <div class="nn">${esc(p.n)}</div>
+        <div class="ss">${esc(T[p.team].city+' '+T[p.team].nick)} &middot; ${POSNAME[p.pos]}${p.cap?' &middot; Captain':''}${p.rook?' &middot; Rookie':''}${p.res?' &middot; Reserve':''}</div>
+      </div>
+      <div class="jj">${p.j}</div>
+    </div>
+    ${p.aw.length?`<div class="awrow">${p.aw.map(a=>`<span class="aw">${esc(a)}</span>`).join('')}</div>`:''}
+    ${p.fact?`<div class="note">${esc(p.fact)}</div>`:''}
+    <div class="facts">${f.map(([k,v])=>`<div class="fact"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('')}</div>
+    <h2 class="sec">2026 season</h2>
+    ${stats}
+    <h2 class="sec">Also from ${esc(p.college)}</h2>
+    ${sameCollege(p)}
+  </div>`;
+}
+function sameCollege(p){
+  const o=P.filter(x=>x.college===p.college && x.id!==p.id).sort((a,b)=>a.n.localeCompare(b.n));
+  if(!o.length) return `<div class="count">Only ${esc(p.college)} player here this weekend.</div>`;
+  return `<div class="plist">${o.map(playerRow).join('')}</div>`;
+}
+
+/* TEAMS */
+function vTeams(){
+  return `<div class="wrap"><div class="pagehead"><h1 class="page">Teams</h1></div>
+  <div class="tgrid">${TEAMLIST.map(t=>`<a class="tcard" href="#team/${encodeURIComponent(t)}" style="background:${grad(t)}">
+    <img src="${logo(t)}" alt="">
+    <div style="text-align:center"><div class="cn">${esc(T[t].city)}</div><div class="nn">${esc(T[t].nick)}</div></div>
+    <div class="rec">${REC[t]} &middot; ${T[t].conf}</div></a>`).join('')}</div></div>`;
+}
+function resultRows(t){
+  return (D.results[t]||[]).map(r=>`<tr><td style="color:#6c7889">${r[0]}</td>
+    <td><div class="tname">${teamDot(r[1])}${esc(shortTeam(r[1]))}</div></td>
+    <td class="${r[2]==='W'?'win':'loss'}">${r[2]}</td><td>${r[3]}</td></tr>`).join('');
+}
+function vTeam(name){
+  const t=T[name]; if(!t) return vTeams();
+  const h=D.hist[name], g=gameOf(name), opp=g.teams[0]===name?g.teams[1]:g.teams[0];
+  const roster=P.filter(p=>p.team===name);
+  const byPos=POSORDER.map(pos=>{
+    const grp=roster.filter(p=>p.pos===pos).sort((a,b)=>a.j-b.j);
+    if(!grp.length) return '';
+    return `<div class="poshead">${POSNAME[pos]}</div><div class="plist">${grp.map(playerRow).join('')}</div>`;
+  }).join('');
+  const sea=(D.seasons[t.nick]||[]).map(s=>`<div class="sea"><div class="y">${s.y}</div><div class="p">${s.pts}</div><div class="r">#${s.rank} of ${s.of}</div></div>`).join('');
+  const leaders=['PTS','G','A','GB','CT','SV'].map(k=>{
+    const c=roster.filter(p=>p.s[k]).sort((a,b)=>parseFloat(b.s[k])-parseFloat(a.s[k]))[0];
+    return c?`<button class="prow" onclick="go('#p/${c.id}')"><div class="jn" style="font-size:11px;font-weight:800;color:#6c7889;letter-spacing:.06em">${k}</div>${avatar(c)}<div class="pmain"><div class="pn">${esc(c.n)}</div><div class="pm">${esc(c.s[k])} ${k.toLowerCase()}</div></div></button>`:'';
+  }).filter(Boolean).join('');
+  return `<div class="wrap">
+    <a class="back" href="#teams">&larr; All teams</a>
+    <div class="thead" style="background:${grad(name)}">
+      <img src="${logo(name)}" alt="">
+      <div style="flex:1;min-width:190px">
+        <div class="cn">${esc(t.city)}</div><div class="nn">${esc(t.nick)}</div>
+        <div class="trophy">
+          <span class="tro">${REC[name]} in 2026</span>
+          <span class="tro">${t.conf} Conference</span>
+          ${h.titles.map(y=>`<span class="tro">&#127942; ${y} Champions</span>`).join('')}
+          ${h.finals.map(y=>`<span class="tro">${y}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+    <h2 class="sec">Franchise history</h2>
+    <div class="story">${h.story.map(s=>`<p>${esc(s)}</p>`).join('')}</div>
+    <h2 class="sec">Regular season points scored</h2>
+    <div class="seasons">${sea}</div>
+    <h2 class="sec">This weekend</h2>
+    <a class="gcard" href="#matchup/${encodeURIComponent(g.teams[0])}" style="display:block">
+      <div class="when">${gameLabel(g)}</div>
+      <div class="gvs"><img class="lg" src="${logo(name)}" alt=""><span class="nm">${esc(t.city)}</span>
+      <span class="x">vs</span><img class="lg" src="${logo(opp)}" alt=""><span class="nm">${esc(T[opp].city)}</span></div>
+    </a>
+    <h2 class="sec">2026 results</h2>
+    <div class="tbl"><table><thead><tr><th>Date</th><th>Opponent</th><th></th><th>Score</th></tr></thead><tbody>${resultRows(name)}</tbody></table></div>
+    <h2 class="sec">2026 team leaders</h2>
+    <div class="plist">${leaders}</div>
+    <h2 class="sec">Gameday roster</h2>
+    ${byPos}
+  </div>`;
+}
+
+/* MATCHUP */
+function vMatchup(a){
+  const g=D.games.find(x=>x.teams[0]===a); if(!g) return vHome();
+  const [x,y]=g.teams;
+  const side=t=>{
+    const h=D.hist[t];
+    return `<a href="#team/${encodeURIComponent(t)}" class="tcard" style="background:${grad(t)};min-height:auto;padding:22px 18px">
+      <img src="${logo(t)}" alt="" style="height:60px">
+      <div style="text-align:center"><div class="cn">${esc(T[t].city)}</div><div class="nn">${esc(T[t].nick)}</div></div>
+      <div class="rec">${REC[t]} &middot; ${T[t].conf}</div>
+      <div class="rec" style="opacity:.75">${h.titles.length? h.titles.join(', ')+' champion'+(h.titles.length>1?'s':'') : 'No titles yet'}</div>
+    </a>`;
+  };
+  const meet=(D.results[x]||[]).filter(r=>r[1]===y);
+  return `<div class="wrap">
+    <a class="back" href="#home">&larr; Home</a>
+    <div class="eyebrow">${gameLabel(g)}</div>
+    <h1 class="page">${esc(T[x].city)} vs. ${esc(T[y].city)}</h1>
+    <div class="tgrid">${side(x)}${side(y)}</div>
+    <h2 class="sec">Head to head in 2026</h2>
+    ${meet.length
+      ? `<div class="tbl"><table><thead><tr><th>Date</th><th>Result for ${esc(T[x].city)}</th><th>Score</th></tr></thead><tbody>
+         ${meet.map(r=>`<tr><td style="color:#6c7889">${r[0]}</td><td class="${r[2]==='W'?'win':'loss'}">${r[2]==='W'?'Win':'Loss'}</td><td>${r[3]}</td></tr>`).join('')}
+         </tbody></table></div>`
+      : `<div class="note">First meeting of the season between these two.</div>`}
+    <h2 class="sec">${esc(T[x].city)} 2026 results</h2>
+    <div class="tbl"><table><tbody>${resultRows(x)}</tbody></table></div>
+    <h2 class="sec">${esc(T[y].city)} 2026 results</h2>
+    <div class="tbl"><table><tbody>${resultRows(y)}</tbody></table></div>
+    <h2 class="sec">Rosters</h2>
+    <div class="tgrid">
+      <a class="tcard" href="#team/${encodeURIComponent(x)}" style="background:${grad(x)};min-height:100px"><div class="nn">${esc(T[x].city)} roster</div></a>
+      <a class="tcard" href="#team/${encodeURIComponent(y)}" style="background:${grad(y)};min-height:100px"><div class="nn">${esc(T[y].city)} roster</div></a>
+    </div>
+  </div>`;
+}
+
+/* COLLEGES */
+let CQ='';
+function vColleges(){
+  return `<div class="wrap"><div class="pagehead"><h1 class="page">Colleges</h1></div>
+  <input class="txtsearch" style="margin-top:0" id="cq" placeholder="Search a college" value="${esc(CQ)}" oninput="CQ=this.value;paintC()">
+  <div id="cres"></div></div>`;
+}
+function paintC(){
+  const box=$('#cres'); if(!box) return;
+  const map={};
+  P.forEach(p=>{(map[p.college]=map[p.college]||[]).push(p);});
+  let names=Object.keys(map).filter(c=>c.toLowerCase().includes(CQ.trim().toLowerCase()));
+  names.sort((a,b)=>map[b].length-map[a].length || a.localeCompare(b));
+  box.innerHTML=`<div class="count">${names.length} colleges &middot; ${P.length} players</div>
+   <div class="cgrid">${names.map(c=>{
+    const ps=map[c].slice().sort((a,b)=>a.n.localeCompare(b.n));
+    return `<div class="ccard"><div class="ch"><div class="cnm">${esc(c)}</div><div class="ccnt">${ps.length}</div></div>
+      ${ps.map(p=>`<button class="cp" onclick="go('#p/${p.id}')">
+        <span class="cdot" style="background:${T[p.team].c2}"></span>
+        <span class="cnn">${esc(p.n)}</span>
+        <span class="cyy">${esc(T[p.team].abbr)} &middot; '${p.grad.slice(2)}</span></button>`).join('')}
+    </div>`;}).join('')}</div>`;
+}
+
+/* STANDINGS */
+function vStandings(){
+  const tbl=conf=>`<div class="tbl"><table>
+    <thead><tr><th>${conf}</th><th>W</th><th>L</th><th>Strk</th><th>PF</th><th>PA</th><th>+/-</th></tr></thead>
+    <tbody>${D.standings[conf].map(r=>{
+      const known=!!T[r[0]];
+      return `<tr><td><div class="tname ${known?'here':''}">${known?`<img src="${logo(r[0])}" alt="">`:'<span class="dot" style="background:#39424f"></span>'}${esc(r[0])}</div></td>
+      <td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td>
+      <td class="${r[6]>0?'win':(r[6]<0?'loss':'')}">${r[6]>0?'+':''}${r[6]}</td></tr>`;}).join('')}</tbody></table></div>`;
+  const h2hRows=TEAMLIST.map(a=>`<tr><td><div class="tname"><img src="${logo(a)}" alt="">${esc(T[a].abbr)}</div></td>
+    ${TEAMLIST.map(b=>a===b?'<td style="color:#39424f">&mdash;</td>':`<td>${D.h2h[a][b]||'&ndash;'}</td>`).join('')}</tr>`).join('');
+  return `<div class="wrap"><div class="pagehead"><h1 class="page">Standings</h1></div>
+    <div class="count">Gold rows are here in Columbus this weekend</div>
+    ${tbl('East')}<div style="height:12px"></div>${tbl('West')}
+    <h2 class="sec">Head to head, 2026</h2>
+    <div class="tbl"><table><thead><tr><th></th>${TEAMLIST.map(t=>`<th>${esc(T[t].abbr)}</th>`).join('')}</tr></thead>
+      <tbody>${h2hRows}</tbody></table></div>
+    <h2 class="sec">This weekend</h2>
+    <div class="games">${gameCards(true)}</div>
+    <h2 class="sec">Every PLL champion</h2>
+    <div class="tbl"><table><thead><tr><th>Year</th><th>Champion</th><th>Runner-up</th><th>Score</th></tr></thead>
+      <tbody>${D.champs.map(c=>`<tr><td style="color:#6c7889">${c[0]}</td><td style="font-weight:700">${esc(c[1])}</td>
+        <td style="color:#9aa6b5">${esc(c[2])}</td><td>${esc(c[3])}</td></tr>`).join('')}</tbody></table></div>
+  </div>`;
+}
+
+/* INFO */
+function vInfo(){
+  const e=D.event;
+  const box=(k,v)=>`<div class="ib"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  const q=(s,b)=>`<details class="acc"><summary>${s}</summary><div class="body">${b}</div></details>`;
+  return `<div class="wrap"><div class="pagehead"><h1 class="page">Event Info</h1></div>
+    <div class="infogrid">
+      ${box('Venue',esc(e.venue)+'<br><a href="https://maps.apple.com/?q='+encodeURIComponent(e.addr)+'">'+esc(e.addr)+'</a>')}
+      ${box('Parking',esc(e.parking))}
+      ${box('Gates',esc(e.gates))}
+      ${box('Need help on site','Text <a href="sms:4242574467">'+esc(e.text)+'</a><br><a href="mailto:'+e.email+'">'+esc(e.email)+'</a>')}
+    </div>
+    <h2 class="sec">Schedule</h2>
+    <div class="games">${gameCards()}</div>
+    <h2 class="sec">Good to know</h2>
+    ${q('What can I bring in?',esc(e.bags))}
+    ${q('Can I leave and come back?',esc(e.reentry))}
+    ${q('Does my kid need a ticket?',esc(e.kids))}
+    ${q('What if the weather turns?',esc(e.weather))}
+    ${q('Getting there without a car',esc(e.transit))}
+    ${q('Lost something',esc(e.lost))}
+    <h2 class="sec">Venue map</h2>
+    <img class="mapimg" src="assets/logos/wayfinding.webp" alt="Columbus venue map">
+  </div>`;
+}
+
+/* router */
+function go(h){location.hash=h;}
+function route(){
+  const h=location.hash.replace(/^#/,'')||'home';
+  const k=h.split('/')[0], arg=decodeURIComponent(h.split('/').slice(1).join('/'));
+  let html, navKey=k;
+  if(k==='find') html=vFind();
+  else if(k==='teams') html=vTeams();
+  else if(k==='team'){html=vTeam(arg);navKey='teams';}
+  else if(k==='matchup'){html=vMatchup(arg);navKey='home';}
+  else if(k==='colleges') html=vColleges();
+  else if(k==='standings') html=vStandings();
+  else if(k==='info') html=vInfo();
+  else if(k==='p'){html=vPlayer(arg);navKey='find';}
+  else html=vHome();
+  $('#app').innerHTML=html;
+  document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+navKey));
+  if(k==='find') paint();
+  if(k==='colleges') paintC();
+  window.scrollTo(0,0);
+}
+addEventListener('hashchange',route);
+route();
 </script>
 </body>
 </html>

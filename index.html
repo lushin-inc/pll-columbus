@@ -3,223 +3,338 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b0d10">
+<meta name="theme-color" content="#ffffff">
 <title>PLL Columbus Weekend</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
+  --bg:#f6f7f9; --panel:#ffffff; --panel2:#eef0f4; --line:#e2e6ec;
+  --txt:#12161c; --dim:#5c6775; --dim2:#8b95a4; --accent:#b8860b;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.06);
+  --railw:236px;
+}
+html[data-t="dark"]{
   --bg:#0b0d10; --panel:#14181e; --panel2:#1b2029; --line:#252c37;
-  --txt:#eef2f7; --dim:#9aa6b5; --dim2:#6c7889; --gold:#f5c518;
+  --txt:#eef2f7; --dim:#9aa6b5; --dim2:#6c7889; --accent:#f5c518;
+  --shadow:none;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
 body{background:var(--bg);color:var(--txt);font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+  font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer}
-.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+img{max-width:100%}
 
-/* top bar */
-.top{position:sticky;top:0;z-index:60;background:rgba(11,13,16,.94);backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line)}
-.topin{max-width:1180px;margin:0 auto;padding:11px 18px;display:flex;align-items:center;gap:22px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px;letter-spacing:-.01em;white-space:nowrap}
-.brand img{height:22px;width:auto;display:block}
-.nav{display:flex;gap:20px;overflow-x:auto;scrollbar-width:none}
-.nav::-webkit-scrollbar{display:none}
-.nav a{font-size:13.5px;font-weight:600;color:var(--dim);white-space:nowrap;padding:4px 0}
-.nav a.on{color:var(--txt);box-shadow:inset 0 -2px 0 var(--gold)}
+/* ============ layout ============ */
+.shell{display:flex;min-height:100vh}
+.rail{width:var(--railw);flex:0 0 var(--railw);background:var(--panel);border-right:1px solid var(--line);
+  position:fixed;top:0;bottom:0;left:0;z-index:80;display:flex;flex-direction:column;
+  transition:width .18s ease,flex-basis .18s ease}
+.railhead{display:flex;align-items:center;gap:10px;padding:16px 16px 10px;min-height:60px}
+.railhead .lg{height:26px;width:auto;flex-shrink:0}
+.railhead .wm{font-weight:800;font-size:14.5px;letter-spacing:-.015em;white-space:nowrap;overflow:hidden}
+.railtoggle{margin-left:auto;width:32px;height:32px;border-radius:9px;display:flex;align-items:center;
+  justify-content:center;color:var(--dim2);flex-shrink:0}
+.railtoggle:hover{background:var(--panel2)}
+.rnav{padding:8px 10px;display:flex;flex-direction:column;gap:2px;flex:1;overflow-y:auto}
+.rnav a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;
+  font-size:14.5px;font-weight:600;color:var(--dim);white-space:nowrap;overflow:hidden}
+.rnav a svg{flex-shrink:0}
+.rnav a:hover{background:var(--panel2);color:var(--txt)}
+.rnav a.on{background:var(--panel2);color:var(--txt)}
+.rnav a.on svg{color:var(--accent)}
+.railfoot{padding:10px;border-top:1px solid var(--line)}
+.themebtn{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;width:100%;
+  font-size:14.5px;font-weight:600;color:var(--dim);white-space:nowrap;overflow:hidden}
+.themebtn:hover{background:var(--panel2);color:var(--txt)}
+.lbl{transition:opacity .12s}
+body.collapsed{--railw:66px}
+body.collapsed .railhead .wm,body.collapsed .rnav a .lbl,body.collapsed .themebtn .lbl{display:none}
+body.collapsed .railhead{padding:16px 0 10px;justify-content:center}
+body.collapsed .railhead .lg{display:none}
+body.collapsed .rnav a,body.collapsed .themebtn{justify-content:center;padding:12px 0}
+.main{flex:1;min-width:0;margin-left:var(--railw);transition:margin-left .18s ease}
+.wrap{max-width:1080px;margin:0 auto;padding:0 26px 70px}
 
-/* headers */
-.eyebrow{font-size:13px;font-weight:600;color:var(--dim2);letter-spacing:.01em}
-h1.page{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:2px 0 26px}
-h2.sec{font-size:17px;font-weight:700;letter-spacing:-.01em;margin:34px 0 14px}
-.pagehead{padding:30px 0 0}
+/* mobile top bar + drawer */
+.mtop{display:none;position:sticky;top:0;z-index:70;background:var(--panel);border-bottom:1px solid var(--line);
+  padding:10px 14px;align-items:center;gap:12px}
+.mtop .lg{height:24px}
+.mtop .ti{font-weight:800;font-size:15px;letter-spacing:-.015em;flex:1}
+.iconbtn{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;color:var(--dim)}
+.iconbtn:active{background:var(--panel2)}
+.scrim{display:none;position:fixed;inset:0;background:rgba(8,11,15,.45);z-index:75}
+.scrim.show{display:block}
 
-/* hub tiles */
-.hub{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;padding:34px 0 10px}
-.tile{border-radius:20px;padding:26px 22px;min-height:210px;display:flex;flex-direction:column;
-  justify-content:flex-end;color:#fff;position:relative;overflow:hidden;transition:transform .14s ease}
-.tile:active{transform:scale(.985)}
-.tile .ic{position:absolute;top:22px;left:22px;opacity:.9}
-.tile .tt{font-size:27px;font-weight:800;letter-spacing:-.025em;line-height:1.08}
-.t1{background:linear-gradient(150deg,#f5c518,#e8890b);box-shadow:0 12px 34px -14px rgba(245,197,24,.6)}
-.t1 .tt,.t1 .ic{color:#1a1408}
-.t2{background:linear-gradient(150deg,#3b82f6,#1d4ed8);box-shadow:0 12px 34px -14px rgba(59,130,246,.6)}
-.t3{background:linear-gradient(150deg,#a855f7,#6d28d9);box-shadow:0 12px 34px -14px rgba(168,85,247,.55)}
-.t4{background:linear-gradient(150deg,#10b981,#047857);box-shadow:0 12px 34px -14px rgba(16,185,129,.55)}
-.t5{background:linear-gradient(150deg,#f43f5e,#be123c);box-shadow:0 12px 34px -14px rgba(244,63,94,.5)}
+/* ============ type ============ */
+.eyebrow{font-size:13px;font-weight:600;color:var(--dim2)}
+h1.page{font-size:25px;font-weight:700;letter-spacing:-.022em;margin:2px 0 22px}
+h2.sec{font-size:16.5px;font-weight:700;letter-spacing:-.012em;margin:32px 0 13px}
+.pagehead{padding:28px 0 0}
+.count{font-size:13px;color:var(--dim2);font-weight:600;margin:20px 0 10px}
+.back{font-size:13.5px;font-weight:600;color:var(--dim);padding:20px 0 4px;display:inline-block}
 
-/* game strip */
-.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:8px 0 6px}
-.gcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px 16px}
-.gcard .when{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.03em;text-transform:uppercase}
-.gvs{display:flex;align-items:center;gap:11px;margin-top:11px}
-.gvs .lg{width:38px;height:38px;object-fit:contain}
-.gvs .nm{font-size:15px;font-weight:700;letter-spacing:-.01em}
-.gvs .x{color:var(--dim2);font-size:12px;font-weight:700;margin:0 2px}
+/* ============ hub ============ */
+.hub{display:flex;flex-direction:column;gap:12px;padding:28px 0 4px}
+.tile{border-radius:18px;padding:22px 24px;color:#fff;display:flex;align-items:center;gap:18px;
+  min-height:96px;transition:transform .13s ease}
+.tile:active{transform:scale(.99)}
+.tile .ic{width:44px;height:44px;border-radius:13px;background:rgba(255,255,255,.2);display:flex;
+  align-items:center;justify-content:center;flex-shrink:0}
+.tile .tt{font-size:25px;font-weight:800;letter-spacing:-.028em;line-height:1.1}
+.tile .ar{margin-left:auto;opacity:.65}
+.t1{background:linear-gradient(120deg,#f0a41c,#d9740b)}
+.t2{background:linear-gradient(120deg,#4f8ef7,#1d4ed8)}
+.t3{background:linear-gradient(120deg,#a855f7,#6d28d9)}
+.t4{background:linear-gradient(120deg,#10b981,#047857)}
+.t5{background:linear-gradient(120deg,#f4526b,#be123c)}
 
-/* search tool */
-.searchwrap{margin:6px 0 20px}
-.numdisp{background:var(--panel);border:2px solid var(--line);border-radius:18px;
-  display:flex;align-items:center;justify-content:center;height:96px;font-size:52px;font-weight:900;
+/* ============ cards ============ */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.games{display:flex;flex-direction:column;gap:11px}
+.gcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px 17px;
+  box-shadow:var(--shadow);display:block}
+.gcard .when{font-size:11.5px;font-weight:700;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.gvs{display:flex;align-items:center;gap:12px;margin-top:11px;flex-wrap:wrap}
+.gvs .lg{width:40px;height:40px;object-fit:contain;flex-shrink:0}
+.gvs .nm{font-size:15.5px;font-weight:700;letter-spacing:-.015em}
+.gvs .x{color:var(--dim2);font-size:12px;font-weight:700}
+
+/* ============ search ============ */
+.numdisp{background:var(--panel);border:2px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
+  display:flex;align-items:center;justify-content:center;height:94px;font-size:50px;font-weight:900;
   letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-.numdisp.empty{color:var(--dim2);font-size:17px;font-weight:600;letter-spacing:0}
-.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-.pad button{background:var(--panel2);border:1px solid var(--line);border-radius:16px;height:62px;
-  font-size:25px;font-weight:700;font-variant-numeric:tabular-nums;transition:background .1s}
-.pad button:active{background:#2a3240}
-.pad button.act{color:var(--gold);font-size:16px;font-weight:700}
+.numdisp.empty{color:var(--dim2);font-size:16.5px;font-weight:600;letter-spacing:0}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:11px}
+.pad button{background:var(--panel);border:1px solid var(--line);border-radius:15px;height:60px;
+  font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;box-shadow:var(--shadow)}
+.pad button:active{background:var(--panel2)}
+.pad button.act{color:var(--accent);font-size:15.5px;font-weight:700}
 .txtsearch{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:14px;
-  padding:15px 16px;font-size:16px;color:var(--txt);margin-top:12px;outline:none}
-.txtsearch:focus{border-color:#3b4757}
+  padding:15px 16px;font-size:16px;color:var(--txt);margin-top:11px;outline:none;box-shadow:var(--shadow)}
+.txtsearch:focus{border-color:var(--dim2)}
 .txtsearch::placeholder{color:var(--dim2)}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 14px;
-  font-size:13px;font-weight:600;color:var(--dim)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 13px 6px 7px;
+  font-size:13px;font-weight:600;color:var(--dim);display:flex;align-items:center;gap:7px}
+.chip img{width:21px;height:21px;object-fit:contain}
 .chip.on{color:#fff;border-color:transparent}
-.count{font-size:13px;color:var(--dim2);font-weight:600;margin:22px 0 10px}
 
-/* player rows */
-.plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:10px}
-.prow{display:flex;align-items:center;gap:13px;background:var(--panel);border:1px solid var(--line);
-  border-radius:15px;padding:11px 14px 11px 11px;text-align:left;width:100%;transition:border-color .12s}
-.prow:active{border-color:#3b4757}
-.prow .jn{min-width:44px;font-size:23px;font-weight:900;text-align:center;font-variant-numeric:tabular-nums;
-  letter-spacing:-.03em}
-.av{width:50px;height:50px;border-radius:50%;object-fit:cover;background:#222932;flex-shrink:0}
-.avph{width:50px;height:50px;border-radius:50%;background:#222932;flex-shrink:0;display:flex;
+/* ============ player rows ============ */
+.plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px}
+.prow{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);
+  border-radius:15px;padding:10px 13px 10px 10px;text-align:left;width:100%;box-shadow:var(--shadow)}
+.prow:active{background:var(--panel2)}
+.prow .jn{min-width:40px;font-size:22px;font-weight:900;text-align:center;font-variant-numeric:tabular-nums;
+  letter-spacing:-.035em;flex-shrink:0}
+.avwrap{position:relative;flex-shrink:0}
+.av{width:50px;height:50px;border-radius:50%;object-fit:cover;background:var(--panel2);display:block}
+.avph{width:50px;height:50px;border-radius:50%;background:var(--panel2);display:flex;
   align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--dim2)}
+.tmini{position:absolute;right:-3px;bottom:-3px;width:22px;height:22px;border-radius:50%;
+  background:var(--panel);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.tmini img{width:15px;height:15px;object-fit:contain}
 .pmain{min-width:0;flex:1}
 .pn{font-size:15.5px;font-weight:700;letter-spacing:-.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pm{font-size:12.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pm{font-size:12.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  display:flex;align-items:center;gap:6px}
+.pm img.sl{width:15px;height:15px;object-fit:contain;flex-shrink:0}
 .pm2{font-size:12px;color:var(--dim2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.posb{font-size:10.5px;font-weight:800;letter-spacing:.06em;padding:3px 7px;border-radius:6px;
-  background:#232a34;color:var(--dim);flex-shrink:0}
+.pico{width:34px;height:34px;border-radius:10px;background:var(--panel2);display:flex;align-items:center;
+  justify-content:center;flex-shrink:0}
+.pico img{width:19px;height:19px;object-fit:contain}
+.res{font-size:10px;color:var(--dim2);font-weight:700;letter-spacing:.06em}
 
-/* player detail */
-.pd{border-radius:22px;padding:24px;color:#fff;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
-.pd img.big{width:112px;height:112px;border-radius:50%;object-fit:cover;background:rgba(0,0,0,.25);
-  border:3px solid rgba(255,255,255,.22)}
-.pd .bigph{width:112px;height:112px;border-radius:50%;background:rgba(0,0,0,.25);display:flex;
-  align-items:center;justify-content:center;font-size:34px;font-weight:900;border:3px solid rgba(255,255,255,.22)}
-.pd .jj{font-size:60px;font-weight:900;letter-spacing:-.05em;line-height:1;opacity:.95}
-.pd .nn{font-size:31px;font-weight:800;letter-spacing:-.028em;line-height:1.1}
-.pd .ss{font-size:14px;font-weight:600;opacity:.85;margin-top:3px}
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:11px;margin-top:16px}
-.fact{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 15px}
-.fact .k{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--dim2)}
-.fact .v{font-size:15.5px;font-weight:600;margin-top:4px;letter-spacing:-.01em}
-.note{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);
-  border-radius:12px;padding:15px 17px;margin-top:12px;font-size:14.5px;color:#d3dbe5;line-height:1.55}
-.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:9px;margin-top:12px}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center}
-.stat .sv{font-size:21px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+/* ============ player detail ============ */
+.pd{border-radius:20px;padding:24px;color:#fff;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.pd .big{width:110px;height:110px;border-radius:50%;object-fit:cover;background:rgba(0,0,0,.22);
+  border:3px solid rgba(255,255,255,.25)}
+.pd .bigph{width:110px;height:110px;border-radius:50%;background:rgba(0,0,0,.22);display:flex;
+  align-items:center;justify-content:center;font-size:33px;font-weight:900;border:3px solid rgba(255,255,255,.25)}
+.pd .jj{font-size:58px;font-weight:900;letter-spacing:-.05em;line-height:1;opacity:.95}
+.pd .nn{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.pd .ss{font-size:14px;font-weight:600;opacity:.88;margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pd .ss img.tl{width:22px;height:22px;object-fit:contain}
+.pd .ss img.pi{width:20px;height:20px;object-fit:contain}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px;margin-top:15px}
+.fact{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow)}
+.fact .k{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim2)}
+.fact .v{font-size:15.5px;font-weight:600;margin-top:4px;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+.fact .v img{width:22px;height:22px;object-fit:contain}
+.note{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:12px;padding:15px 17px;margin-top:12px;font-size:14.5px;color:var(--dim);line-height:1.55;
+  box-shadow:var(--shadow)}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:9px;margin-top:12px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center;
+  box-shadow:var(--shadow)}
+.stat .sv{font-size:20px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .stat .sk{font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--dim2);margin-top:2px}
-.awrow{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
-.aw{background:rgba(245,197,24,.11);border:1px solid rgba(245,197,24,.3);color:#f7d763;
-  border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:600}
+.awrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.aw{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 14px 6px 8px;
+  font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow)}
+.aw img{width:19px;height:19px;object-fit:contain}
 
-/* team */
-.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:13px}
-.tcard{border-radius:18px;padding:20px 18px;color:#fff;display:flex;flex-direction:column;
-  align-items:center;gap:11px;min-height:158px;justify-content:center}
-.tcard img{height:52px;width:auto;object-fit:contain}
-.tcard .cn{font-size:12px;font-weight:600;opacity:.8}
-.tcard .nn{font-size:19px;font-weight:800;letter-spacing:-.02em;text-align:center;line-height:1.1}
-.tcard .rec{font-size:12.5px;font-weight:700;opacity:.85;font-variant-numeric:tabular-nums}
-.thead{border-radius:22px;padding:26px 24px;color:#fff;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.thead img{height:68px;width:auto;object-fit:contain}
-.thead .cn{font-size:14px;font-weight:600;opacity:.82}
-.thead .nn{font-size:33px;font-weight:800;letter-spacing:-.03em;line-height:1.05}
-.trophy{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.tro{background:rgba(0,0,0,.28);border-radius:999px;padding:5px 13px;font-size:12.5px;font-weight:700}
-.story p{color:#c6d0dc;font-size:15px;line-height:1.6;margin:0 0 10px}
-.seasons{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
-.sea{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 13px;min-width:78px}
+/* ============ teams ============ */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.tcard{border-radius:17px;padding:20px 18px;color:#fff;display:flex;align-items:center;gap:15px;min-height:104px}
+.tcard img{height:50px;width:50px;object-fit:contain;flex-shrink:0}
+.tcard .cn{font-size:12px;font-weight:600;opacity:.82}
+.tcard .nn{font-size:19px;font-weight:800;letter-spacing:-.022em;line-height:1.12}
+.tcard .rec{font-size:12.5px;font-weight:700;opacity:.85;margin-top:3px;font-variant-numeric:tabular-nums}
+.thead{border-radius:20px;padding:24px;color:#fff;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.thead img{height:66px;width:66px;object-fit:contain}
+.thead .cn{font-size:13.5px;font-weight:600;opacity:.85}
+.thead .nn{font-size:31px;font-weight:800;letter-spacing:-.03em;line-height:1.06}
+.trophy{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.tro{background:rgba(0,0,0,.26);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:700}
+.story p{color:var(--dim);font-size:15px;line-height:1.6;margin:0 0 10px}
+.seasons{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:8px}
+.sea{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:var(--shadow)}
 .sea .y{font-size:11px;font-weight:700;color:var(--dim2)}
 .sea .p{font-size:17px;font-weight:800;letter-spacing:-.02em}
 .sea .r{font-size:11px;color:var(--dim);font-weight:600}
-.poshead{font-size:11.5px;font-weight:800;letter-spacing:.09em;color:var(--dim2);margin:22px 0 9px;
-  text-transform:uppercase}
+.poshead{display:flex;align-items:center;gap:9px;font-size:11.5px;font-weight:800;letter-spacing:.09em;
+  color:var(--dim2);margin:22px 0 9px;text-transform:uppercase}
+.poshead img{width:17px;height:17px;object-fit:contain}
 
-/* tables */
+/* ============ score rows ============ */
+.slist{display:flex;flex-direction:column;gap:8px}
+.srow{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);
+  border-radius:13px;padding:11px 14px;box-shadow:var(--shadow);font-size:14px}
+.srow .dt{font-size:12px;color:var(--dim2);font-weight:600;min-width:42px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.srow .wl{width:23px;height:23px;border-radius:7px;display:flex;align-items:center;justify-content:center;
+  font-size:11.5px;font-weight:800;color:#fff;flex-shrink:0}
+.wl.w{background:#12a06a}.wl.l{background:#d0453f}
+.srow .sc{display:flex;align-items:center;gap:8px;flex:1;min-width:0;font-weight:600;flex-wrap:wrap}
+.srow .sc img{width:22px;height:22px;object-fit:contain;flex-shrink:0}
+.srow .pts{font-weight:800;font-variant-numeric:tabular-nums}
+.srow .lo{color:var(--dim2);font-weight:600}
+.srow .dash{color:var(--dim2)}
+
+/* ============ tables ============ */
 table{width:100%;border-collapse:collapse;font-size:14px}
 th{text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--dim2);
-  text-transform:uppercase;padding:9px 8px;border-bottom:1px solid var(--line)}
-td{padding:11px 8px;border-bottom:1px solid #1c222b;font-variant-numeric:tabular-nums}
+  text-transform:uppercase;padding:9px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:11px 8px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
 tr:last-child td{border-bottom:0}
 .tname{display:flex;align-items:center;gap:9px;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
-.tname img{width:24px;height:24px;object-fit:contain}
-.tname .dot{width:4px;height:22px;border-radius:2px;flex-shrink:0}
-.here{color:var(--gold)}
-.tbl{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:6px 12px;overflow-x:auto}
-.win{color:#34d399;font-weight:700}.loss{color:#f87171;font-weight:700}
+.tname img{width:24px;height:24px;object-fit:contain;flex-shrink:0}
+.here{color:var(--accent)}
+.tbl{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:4px 14px;
+  overflow-x:auto;box-shadow:var(--shadow)}
+.win{color:#12a06a;font-weight:700}.loss{color:#d0453f;font-weight:700}
 
-/* colleges */
-.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:12px}
-.ccard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px 16px}
-.ccard .ch{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:11px}
-.ccard .cnm{font-size:16.5px;font-weight:700;letter-spacing:-.015em}
-.ccard .ccnt{font-size:12px;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}
-.cp{display:flex;align-items:center;gap:9px;padding:6px 0;width:100%;text-align:left}
-.cp .cdot{width:3px;height:26px;border-radius:2px;flex-shrink:0}
-.cp .cnn{font-size:14px;font-weight:600;letter-spacing:-.01em}
-.cp .cyy{font-size:11.5px;color:var(--dim2);margin-left:auto;font-variant-numeric:tabular-nums;flex-shrink:0}
+/* ============ colleges ============ */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:12px}
+.scard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 14px 16px;
+  display:flex;flex-direction:column;align-items:center;gap:12px;box-shadow:var(--shadow);text-align:center}
+.scard:active{background:var(--panel2)}
+.scard .lw{height:56px;display:flex;align-items:center;justify-content:center}
+.scard .lw img{max-height:56px;max-width:76px;object-fit:contain}
+.scard .ph{width:56px;height:56px;border-radius:14px;background:var(--panel2);display:flex;align-items:center;
+  justify-content:center;font-size:17px;font-weight:800;color:var(--dim2)}
+.scard .snm{font-size:14.5px;font-weight:700;letter-spacing:-.015em;line-height:1.2}
+.scard .scnt{font-size:11.5px;font-weight:700;color:var(--dim2);background:var(--panel2);
+  border-radius:999px;padding:3px 11px}
+.chead{display:flex;align-items:center;gap:18px;background:var(--panel);border:1px solid var(--line);
+  border-radius:20px;padding:22px 24px;box-shadow:var(--shadow)}
+.chead img{max-height:72px;max-width:96px;object-fit:contain}
+.chead .cnm{font-size:27px;font-weight:800;letter-spacing:-.028em;line-height:1.1}
+.chead .ccc{font-size:13.5px;color:var(--dim2);font-weight:600;margin-top:2px}
+.sortrow{display:flex;gap:8px;margin-top:11px}
+.sortrow button{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 15px;
+  font-size:13px;font-weight:600;color:var(--dim)}
+.sortrow button.on{background:var(--txt);color:var(--bg);border-color:var(--txt)}
 
-/* info */
-.acc{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:9px;overflow:hidden}
+/* ============ info ============ */
+.acc{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:9px;
+  overflow:hidden;box-shadow:var(--shadow)}
 .acc summary{padding:16px 18px;font-size:15.5px;font-weight:600;letter-spacing:-.01em;cursor:pointer;
   list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .acc summary::-webkit-details-marker{display:none}
 .acc summary::after{content:'+';font-size:20px;color:var(--dim2);font-weight:400}
 .acc[open] summary::after{content:'\2212'}
-.acc .body{padding:0 18px 17px;font-size:14.5px;color:#c6d0dc;line-height:1.6}
-.infogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-.ib{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px 18px}
-.ib .k{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dim2)}
-.ib .v{font-size:15px;margin-top:6px;color:#d3dbe5;line-height:1.55}
-.ib a{color:var(--gold);font-weight:600}
+.acc .body{padding:0 18px 17px;font-size:14.5px;color:var(--dim);line-height:1.6}
+.infogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:11px}
+.ib{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px 18px;box-shadow:var(--shadow)}
+.ib .k{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dim2)}
+.ib .v{font-size:15px;margin-top:6px;color:var(--dim);line-height:1.55}
+.ib a{color:var(--accent);font-weight:600}
 .mapimg{width:100%;border-radius:16px;margin-top:12px;border:1px solid var(--line);display:block}
-.back{font-size:13.5px;font-weight:600;color:var(--dim);padding:22px 0 4px;display:inline-block}
 
-@media(max-width:640px){
-  .wrap{padding:0 14px}
-  .topin{padding:10px 14px;gap:14px}
-  .hub{grid-template-columns:1fr 1fr;gap:11px;padding:22px 0 6px}
-  .tile{min-height:150px;padding:18px 15px;border-radius:17px}
-  .tile .tt{font-size:20px}
-  .tile .ic{top:15px;left:15px}
-  .tile .ic svg{width:22px;height:22px}
-  h1.page{font-size:22px;margin-bottom:20px}
+/* ============ mobile ============ */
+@media(max-width:860px){
+  .rail{transform:translateX(-100%);transition:transform .2s ease;width:270px;flex-basis:270px;box-shadow:0 0 40px rgba(0,0,0,.25)}
+  body.drawer .rail{transform:translateX(0)}
+  body.collapsed .rail{width:270px}
+  body.collapsed .railhead .wm,body.collapsed .rnav a .lbl,body.collapsed .themebtn .lbl{display:block}
+  body.collapsed .railhead{padding:16px 16px 10px;justify-content:flex-start}
+  body.collapsed .railhead .lg{display:block}
+  body.collapsed .rnav a,body.collapsed .themebtn{justify-content:flex-start;padding:11px 12px}
+  .railtoggle{display:none}
+  .main{margin-left:0}
+  .mtop{display:flex}
+  .wrap{padding:0 15px 60px;max-width:100%}
+  .hub{padding:20px 0 4px;gap:10px}
+  .tile{min-height:84px;padding:18px 18px;border-radius:16px}
+  .tile .tt{font-size:21px}
+  .tile .ic{width:40px;height:40px}
+  h1.page{font-size:22px;margin-bottom:18px}
   .plist{grid-template-columns:1fr}
+  .tgrid{grid-template-columns:1fr}
+  .sgrid{grid-template-columns:repeat(auto-fill,minmax(46%,1fr))}
+  .facts{grid-template-columns:1fr 1fr}
+  .infogrid{grid-template-columns:1fr}
   .pd{padding:19px;gap:15px}
-  .pd .nn{font-size:25px}
-  .pd img.big,.pd .bigph{width:86px;height:86px}
-  .pd .jj{font-size:46px}
-  .thead .nn{font-size:26px}
-  .numdisp{height:84px;font-size:46px}
-  .pad button{height:57px}
+  .pd .nn{font-size:24px}
+  .pd .big,.pd .bigph{width:84px;height:84px}
+  .pd .jj{font-size:42px}
+  .thead{padding:20px;gap:16px}
+  .thead .nn{font-size:25px}
+  .thead img{height:56px;width:56px}
+  .chead{padding:18px;gap:14px}
+  .chead .cnm{font-size:22px}
+  .chead img{max-height:56px;max-width:72px}
+  .numdisp{height:82px;font-size:44px}
+  .pad button{height:56px}
+  .seasons{grid-template-columns:repeat(auto-fit,minmax(76px,1fr))}
 }
+@media(max-width:400px){ .facts{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
+<div class="shell">
 
-<div class="top"><div class="topin">
-  <a href="#home" class="brand"><img src="assets/logos/pll.webp" alt=""><span>Columbus</span></a>
-  <nav class="nav" id="nav">
-    <a href="#home">Home</a>
-    <a href="#find">Find a Player</a>
-    <a href="#teams">Teams</a>
-    <a href="#colleges">Colleges</a>
-    <a href="#standings">Standings</a>
-    <a href="#info">Event Info</a>
-  </nav>
-</div></div>
+<aside class="rail" id="rail">
+  <div class="railhead">
+    <img class="lg" src="assets/logos/pll.webp" alt="">
+    <span class="wm">Columbus</span>
+    <button class="railtoggle" onclick="toggleRail()" aria-label="Collapse menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg>
+    </button>
+  </div>
+  <nav class="rnav" id="rnav"></nav>
+  <div class="railfoot">
+    <button class="themebtn" onclick="toggleTheme()"><span id="themeic"></span><span class="lbl" id="themetx">Dark mode</span></button>
+  </div>
+</aside>
+<div class="scrim" id="scrim" onclick="closeDrawer()"></div>
 
-<main id="app"></main>
+<div class="main">
+  <div class="mtop">
+    <button class="iconbtn" onclick="openDrawer()" aria-label="Menu">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <img class="lg" src="assets/logos/pll.webp" alt="">
+    <span class="ti" id="mtitle">Columbus</span>
+    <button class="iconbtn" onclick="toggleTheme()" aria-label="Theme"><span id="themeic2"></span></button>
+  </div>
+  <main id="app"></main>
+</div>
+</div>
 
 <script src="assets/data.js"></script>
 <script>
@@ -227,90 +342,150 @@ const D=window.DATA, T=D.teams, P=D.players;
 const $=(s,r=document)=>r.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const logo=t=>'assets/logos/'+T[t].logo;
-const grad=t=>`linear-gradient(150deg,${T[t].c2},${T[t].c1})`;
-const initials=n=>n.split(' ').filter(x=>x.length>1).slice(0,2).map(x=>x[0]).join('');
+const grad=t=>`linear-gradient(120deg,${T[t].c2},${T[t].c1})`;
+const initials=n=>n.split(/[\s.]+/).filter(x=>x.length>1).slice(0,2).map(x=>x[0]).join('');
 const POSNAME={A:'Attack',M:'Midfield',D:'Defense',G:'Goalie',LSM:'Long-Stick Midfield',SSDM:'Short-Stick D-Midfield',FO:'Faceoff'};
 const POSORDER=['A','M','SSDM','FO','LSM','D','G'];
 const TEAMLIST=Object.keys(T);
 const REC={};D.standings.East.concat(D.standings.West).forEach(r=>REC[r[0]]=r[1]+'-'+r[2]);
 const gameOf=t=>D.games.find(g=>g.teams.includes(t));
 const gameLabel=g=>g.day+' &middot; '+g.time;
-const shortTeam=n=>T[n]?T[n].city+' '+T[n].nick:n;
+const posIcon=(p,sz=19)=>`<img src="assets/pos/${p}.svg" alt="${POSNAME[p]}" title="${POSNAME[p]}" style="width:${sz}px;height:${sz}px;object-fit:contain">`;
+/* every PLL club, so opponents outside this weekend still get a logo and a short name */
+const ANY=Object.assign({},D.other||{},T);
+const cityOf=t=>ANY[t]?ANY[t].city:t;
+const teamLogo=(t,sz=24)=>ANY[t]?`<img src="assets/logos/${ANY[t].logo}" alt="${esc(t)}" style="width:${sz}px;height:${sz}px;object-fit:contain;flex-shrink:0">`:'';
+const schoolLogo=(p,sz=15)=>p.clogo?`<img class="sl" src="assets/schools/${p.clogo}" alt="" style="width:${sz}px;height:${sz}px">`:'';
 
-function avatar(p,cls){
-  return p.img ? `<img class="${cls==='big'?'big':'av'}" src="assets/photos/${esc(p.img)}" alt="" loading="lazy">`
-               : `<div class="${cls==='big'?'bigph':'avph'}">${esc(initials(p.n))}</div>`;
+/* award icon mapping */
+function awIcon(a){
+  const s=a.toLowerCase();
+  if(s.includes('most valuable')) return 'mvp';
+  if(s.includes('rookie')) return 'rookie';
+  if(s.includes('leadership')) return 'leadership';
+  if(s.includes('sportsmanship')) return 'sportsmanship';
+  if(s.includes('teammate')) return 'teammate';
+  if(s.includes('humanitarian')) return 'humanitarian';
+  if(s.includes('attackman')) return 'A';
+  if(s.includes('short-stick')) return 'SSDM';
+  if(s.includes('long-stick')) return 'LSM';
+  if(s.includes('midfielder')) return 'M';
+  if(s.includes('goalie')) return 'G';
+  if(s.includes('defensive player')) return 'D';
+  if(s.includes('face-off')) return 'FO';
+  return 'award';
+}
+
+/* ============ nav ============ */
+const NAV=[
+  ['home','Home','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.8V21h14V9.8"/></svg>'],
+  ['find','Find a Player','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>'],
+  ['teams','Teams','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>'],
+  ['colleges','Colleges','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>'],
+  ['standings','Standings','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>'],
+  ['info','Event Info','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>']
+];
+$('#rnav').innerHTML=NAV.map(([k,l,i])=>`<a href="#${k}" data-k="${k}" onclick="closeDrawer()">${i}<span class="lbl">${l}</span></a>`).join('');
+
+const SUN='<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>';
+const MOON='<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"/></svg>';
+function store(k,v){try{v===undefined?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}
+function read(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function applyTheme(t){
+  document.documentElement.setAttribute('data-t',t);
+  $('#themeic').innerHTML = t==='dark'?SUN:MOON;
+  $('#themeic2').innerHTML = t==='dark'?SUN:MOON;
+  $('#themetx').textContent = t==='dark'?'Light mode':'Dark mode';
+  const m=document.querySelector('meta[name=theme-color]'); if(m) m.content = t==='dark'?'#0b0d10':'#ffffff';
+}
+function toggleTheme(){const n=document.documentElement.getAttribute('data-t')==='dark'?'light':'dark';applyTheme(n);store('pllTheme',n);}
+applyTheme(read('pllTheme')||'light');
+function toggleRail(){document.body.classList.toggle('collapsed');store('pllRail',document.body.classList.contains('collapsed')?'1':'0');}
+if(read('pllRail')==='1') document.body.classList.add('collapsed');
+function openDrawer(){document.body.classList.add('drawer');$('#scrim').classList.add('show');}
+function closeDrawer(){document.body.classList.remove('drawer');$('#scrim').classList.remove('show');}
+
+/* ============ shared bits ============ */
+function avatar(p,big){
+  const im = p.img ? `<img class="${big?'big':'av'}" src="assets/photos/${esc(p.img)}" alt="" loading="lazy">`
+                   : `<div class="${big?'bigph':'avph'}">${esc(initials(p.n))}</div>`;
+  if(big) return im;
+  return `<div class="avwrap">${im}<div class="tmini">${teamLogo(p.team,15)}</div></div>`;
 }
 function playerRow(p){
   return `<button class="prow" onclick="go('#p/${p.id}')">
     <div class="jn" style="color:${T[p.team].c2}">${p.j}</div>
     ${avatar(p)}
     <div class="pmain">
-      <div class="pn">${esc(p.n)}${p.res?' <span style="font-size:11px;color:#6c7889;font-weight:600">RES</span>':''}</div>
-      <div class="pm">${esc(T[p.team].city)} &middot; ${esc(p.college)} '${p.grad.slice(2)}</div>
+      <div class="pn">${esc(p.n)}${p.res?' <span class="res">RES</span>':''}</div>
+      <div class="pm">${schoolLogo(p)}<span>${esc(p.college)}${p.grad?" '"+p.grad.slice(2):''}</span></div>
       <div class="pm2">${esc(p.home)}</div>
     </div>
-    <div class="posb">${p.pos}</div>
+    <div class="pico">${posIcon(p.pos)}</div>
   </button>`;
 }
-const teamDot=t=>`<span class="dot" style="background:${T[t]?T[t].c2:'#39424f'}"></span>`;
-
-/* HOME */
-function vHome(){
-  const I={
-    find:'<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
-    teams:'<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-    col:'<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>',
-    std:'<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>',
-    info:'<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
-  };
-  const ic=p=>`<span class="ic">${p}</span>`;
-  return `<div class="wrap">
-    <div class="hub">
-      <a class="tile t1" href="#find">${ic(I.find)}<div class="tt">Find a<br>Player</div></a>
-      <a class="tile t2" href="#teams">${ic(I.teams)}<div class="tt">Teams</div></a>
-      <a class="tile t3" href="#colleges">${ic(I.col)}<div class="tt">Colleges</div></a>
-      <a class="tile t4" href="#standings">${ic(I.std)}<div class="tt">Standings</div></a>
-      <a class="tile t5" href="#info">${ic(I.info)}<div class="tt">Event Info</div></a>
-    </div>
-    <h2 class="sec">This weekend at Ohio State</h2>
-    <div class="games">${gameCards()}</div>
-  </div>`;
-}
-function gameCards(extra){
-  return D.games.map(g=>`<a class="gcard" href="#matchup/${encodeURIComponent(g.teams[0])}">
+function gameCards(showRec){
+  return `<div class="games">${D.games.map(g=>`<a class="gcard" href="#matchup/${encodeURIComponent(g.teams[0])}">
       <div class="when">${gameLabel(g)}</div>
       <div class="gvs">
-        <img class="lg" src="${logo(g.teams[0])}" alt=""><span class="nm">${esc(T[g.teams[0]].city)}</span>
+        ${teamLogo(g.teams[0],40)}<span class="nm">${esc(T[g.teams[0]].city)}</span>
         <span class="x">vs</span>
-        <img class="lg" src="${logo(g.teams[1])}" alt=""><span class="nm">${esc(T[g.teams[1]].city)}</span>
+        ${teamLogo(g.teams[1],40)}<span class="nm">${esc(T[g.teams[1]].city)}</span>
       </div>
-      ${extra?`<div class="pm2" style="margin-top:9px">${REC[g.teams[0]]} &nbsp;&middot;&nbsp; ${REC[g.teams[1]]}</div>`:''}
-    </a>`).join('');
+      ${showRec?`<div class="pm2" style="margin-top:9px">${REC[g.teams[0]]}&nbsp;&nbsp;&middot;&nbsp;&nbsp;${REC[g.teams[1]]}</div>`:''}
+    </a>`).join('')}</div>`;
+}
+/* score row: always names both teams and both scores */
+function scoreRow(team,r){
+  const [dt,opp,wl,sc]=r;
+  const [us,them]=sc.split('-');
+  const won = wl==='W';
+  return `<div class="srow">
+    <span class="dt">${dt}</span>
+    <span class="wl ${won?'w':'l'}">${wl}</span>
+    <span class="sc">
+      ${teamLogo(team,22)}<span class="${won?'':'lo'}">${esc(cityOf(team))}</span><span class="pts ${won?'':'lo'}">${us}</span>
+      <span class="dash">&ndash;</span>
+      <span class="pts ${won?'lo':''}">${them}</span><span class="${won?'lo':''}">${esc(cityOf(opp))}</span>${teamLogo(opp,22)}
+    </span>
+  </div>`;
+}
+const scoreList=(t,rows)=>`<div class="slist">${(rows||D.results[t]||[]).map(r=>scoreRow(t,r)).join('')}</div>`;
+
+/* ============ HOME ============ */
+function vHome(){
+  const tiles=[
+    ['find','t1','Find a Player',NAV[1][2]],['teams','t2','Teams',NAV[2][2]],
+    ['colleges','t3','Colleges',NAV[3][2]],['standings','t4','Standings',NAV[4][2]],
+    ['info','t5','Event Info',NAV[5][2]]
+  ];
+  const ar='<svg class="ar" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
+  return `<div class="wrap">
+    <div class="hub">${tiles.map(([h,c,l,i])=>`<a class="tile ${c}" href="#${h}"><span class="ic">${i}</span><span class="tt">${l}</span>${ar}</a>`).join('')}</div>
+    <h2 class="sec">This weekend at Ohio State</h2>
+    ${gameCards()}
+  </div>`;
 }
 
-/* FIND */
+/* ============ FIND ============ */
 let F={num:'',txt:'',team:''};
 function vFind(){
-  return `<div class="wrap"><div class="pagehead">
-    <h1 class="page">Find a Player</h1></div>
-    <div class="searchwrap">
-      <div class="numdisp ${F.num?'':'empty'}" id="disp">${F.num||'Tap a number'}</div>
-      <div class="pad">
-        ${[1,2,3,4,5,6,7,8,9].map(n=>`<button onclick="dig('${n}')">${n}</button>`).join('')}
-        <button class="act" onclick="clr()">Clear</button>
-        <button onclick="dig('0')">0</button>
-        <button class="act" onclick="del()">&#9003;</button>
-      </div>
-      <input class="txtsearch" id="tx" placeholder="or search name, college, hometown, high school" value="${esc(F.txt)}" oninput="F.txt=this.value;paint()">
-      <div class="chips" id="chips"></div>
+  return `<div class="wrap"><div class="pagehead"><h1 class="page">Find a Player</h1></div>
+    <div class="numdisp ${F.num?'':'empty'}" id="disp">${F.num||'Tap a number'}</div>
+    <div class="pad">
+      ${[1,2,3,4,5,6,7,8,9].map(n=>`<button onclick="dig('${n}')">${n}</button>`).join('')}
+      <button class="act" onclick="clr()">Clear</button>
+      <button onclick="dig('0')">0</button>
+      <button class="act" onclick="del()">&#9003;</button>
     </div>
+    <input class="txtsearch" id="tx" placeholder="or search name, college, hometown, high school" value="${esc(F.txt)}" oninput="F.txt=this.value;paint()">
+    <div class="chips" id="chips"></div>
     <div id="res"></div></div>`;
 }
 function dig(n){ if(F.num.length<2) F.num+=n; paint(); }
 function del(){ F.num=F.num.slice(0,-1); paint(); }
 function clr(){ F.num=''; F.txt=''; F.team=''; const t=$('#tx'); if(t)t.value=''; paint(); }
-function setTeam(t){ F.team = F.team===t?'':t; paint(); }
+function setTeam(t){ F.team=F.team===t?'':t; paint(); }
 function matches(){
   const q=F.txt.trim().toLowerCase();
   return P.filter(p=>{
@@ -321,71 +496,64 @@ function matches(){
       if(!hay.includes(q)) return false;
     }
     return true;
-  }).sort((a,b)=>a.j-b.j || a.n.localeCompare(b.n));
+  }).sort((a,b)=>a.j-b.j||a.n.localeCompare(b.n));
 }
 function paint(){
   const d=$('#disp'); if(!d) return;
   d.textContent=F.num||'Tap a number'; d.className='numdisp'+(F.num?'':' empty');
   $('#chips').innerHTML=TEAMLIST.map(t=>`<button class="chip ${F.team===t?'on':''}"
-    style="${F.team===t?`background:${T[t].c2};`:''}" onclick="setTeam('${t}')">${esc(T[t].city)}</button>`).join('');
-  const m=matches();
-  $('#res').innerHTML=(F.num||F.txt||F.team)
-    ? `<div class="count">${m.length} player${m.length===1?'':'s'}</div><div class="plist">${m.map(playerRow).join('')}</div>${m.length?'':'<div class="count">Nobody on this weekend&rsquo;s rosters matches that.</div>'}`
-    : `<div class="count">All ${P.length} players on this weekend&rsquo;s rosters</div><div class="plist">${P.slice().sort((a,b)=>a.j-b.j||a.n.localeCompare(b.n)).map(playerRow).join('')}</div>`;
+    style="${F.team===t?`background:${T[t].c2};`:''}" onclick="setTeam('${t}')">${teamLogo(t,21)}${esc(T[t].city)}</button>`).join('');
+  const active=F.num||F.txt||F.team, m=active?matches():P.slice().sort((a,b)=>a.j-b.j||a.n.localeCompare(b.n));
+  $('#res').innerHTML=`<div class="count">${active?m.length+' player'+(m.length===1?'':'s'):'All '+P.length+' players this weekend'}</div>`
+    + (m.length?`<div class="plist">${m.map(playerRow).join('')}</div>`:`<div class="note">Nobody on this weekend&rsquo;s rosters matches that.</div>`);
 }
 
-/* PLAYER */
+/* ============ PLAYER ============ */
 function vPlayer(id){
   const p=P[+id]; if(!p) return vHome();
   const g=gameOf(p.team), opp=g.teams[0]===p.team?g.teams[1]:g.teams[0];
-  const f=[];
-  f.push(['College',esc(p.college)+" '"+p.grad.slice(2)]);
+  const f=[['College',(p.clogo?`<img src="assets/schools/${p.clogo}" alt="">`:'')+`<span>${esc(p.college)}${p.grad?" '"+p.grad.slice(2):''}</span>`]];
   if(p.home) f.push(['Hometown',esc(p.home)]);
   if(p.hs) f.push(['High School',esc(p.hs)]);
   if(p.ht) f.push(['Height',esc(p.ht)+(p.wt?', '+Math.round(+p.wt)+' lbs':'')]);
-  if(p.hand) f.push(['Shoots',p.hand==='L'?'Left':'Right']);
-  f.push(['Playing',gameLabel(g)+' vs. '+esc(T[opp].city)]);
+  if(p.hand) f.push(['Shoots',p.hand==='L'?'Left':(p.hand==='R'?'Right':esc(p.hand))]);
+  f.push(['Playing',gameLabel(g)+'<br>vs. '+esc(T[opp].city)]);
   const keys=Object.keys(p.s);
-  const stats = keys.length
-    ? `<div class="statgrid">${keys.map(k=>`<div class="stat"><div class="sv">${esc(p.s[k])}</div><div class="sk">${k}</div></div>`).join('')}</div>`
-    : `<div class="note">No game action yet this season.</div>`;
   return `<div class="wrap">
     <a class="back" href="#find">&larr; Back to search</a>
     <div class="pd" style="background:${grad(p.team)}">
-      ${avatar(p,'big')}
+      ${avatar(p,true)}
       <div style="flex:1;min-width:180px">
         <div class="nn">${esc(p.n)}</div>
-        <div class="ss">${esc(T[p.team].city+' '+T[p.team].nick)} &middot; ${POSNAME[p.pos]}${p.cap?' &middot; Captain':''}${p.rook?' &middot; Rookie':''}${p.res?' &middot; Reserve':''}</div>
+        <div class="ss"><img class="tl" src="${logo(p.team)}" alt="">${esc(T[p.team].city+' '+T[p.team].nick)}
+          <span style="opacity:.5">&middot;</span><img class="pi" src="assets/pos/${p.pos}.svg" alt="">${POSNAME[p.pos]}
+          ${p.cap?'<span style="opacity:.5">&middot;</span>Captain':''}${p.rook?'<span style="opacity:.5">&middot;</span>Rookie':''}${p.res?'<span style="opacity:.5">&middot;</span>Reserve':''}</div>
       </div>
       <div class="jj">${p.j}</div>
     </div>
-    ${p.aw.length?`<div class="awrow">${p.aw.map(a=>`<span class="aw">${esc(a)}</span>`).join('')}</div>`:''}
+    ${p.aw.length?`<div class="awrow">${p.aw.map(a=>`<span class="aw"><img src="assets/pos/${awIcon(a)}.svg" alt="">${esc(a)}</span>`).join('')}</div>`:''}
     ${p.fact?`<div class="note">${esc(p.fact)}</div>`:''}
     <div class="facts">${f.map(([k,v])=>`<div class="fact"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('')}</div>
     <h2 class="sec">2026 season</h2>
-    ${stats}
+    ${keys.length?`<div class="statgrid">${keys.map(k=>`<div class="stat"><div class="sv">${esc(p.s[k])}</div><div class="sk">${k}</div></div>`).join('')}</div>`
+                 :`<div class="note">No game action yet this season.</div>`}
     <h2 class="sec">Also from ${esc(p.college)}</h2>
     ${sameCollege(p)}
   </div>`;
 }
 function sameCollege(p){
-  const o=P.filter(x=>x.college===p.college && x.id!==p.id).sort((a,b)=>a.n.localeCompare(b.n));
-  if(!o.length) return `<div class="count">Only ${esc(p.college)} player here this weekend.</div>`;
+  const o=P.filter(x=>x.college===p.college&&x.id!==p.id).sort((a,b)=>a.n.localeCompare(b.n));
+  if(!o.length) return `<div class="note">Only ${esc(p.college)} player here this weekend.</div>`;
   return `<div class="plist">${o.map(playerRow).join('')}</div>`;
 }
 
-/* TEAMS */
+/* ============ TEAMS ============ */
 function vTeams(){
   return `<div class="wrap"><div class="pagehead"><h1 class="page">Teams</h1></div>
   <div class="tgrid">${TEAMLIST.map(t=>`<a class="tcard" href="#team/${encodeURIComponent(t)}" style="background:${grad(t)}">
     <img src="${logo(t)}" alt="">
-    <div style="text-align:center"><div class="cn">${esc(T[t].city)}</div><div class="nn">${esc(T[t].nick)}</div></div>
-    <div class="rec">${REC[t]} &middot; ${T[t].conf}</div></a>`).join('')}</div></div>`;
-}
-function resultRows(t){
-  return (D.results[t]||[]).map(r=>`<tr><td style="color:#6c7889">${r[0]}</td>
-    <td><div class="tname">${teamDot(r[1])}${esc(shortTeam(r[1]))}</div></td>
-    <td class="${r[2]==='W'?'win':'loss'}">${r[2]}</td><td>${r[3]}</td></tr>`).join('');
+    <div><div class="cn">${esc(T[t].city)}</div><div class="nn">${esc(T[t].nick)}</div>
+    <div class="rec">${REC[t]} &middot; ${T[t].conf}</div></div></a>`).join('')}</div></div>`;
 }
 function vTeam(name){
   const t=T[name]; if(!t) return vTeams();
@@ -394,12 +562,12 @@ function vTeam(name){
   const byPos=POSORDER.map(pos=>{
     const grp=roster.filter(p=>p.pos===pos).sort((a,b)=>a.j-b.j);
     if(!grp.length) return '';
-    return `<div class="poshead">${POSNAME[pos]}</div><div class="plist">${grp.map(playerRow).join('')}</div>`;
+    return `<div class="poshead">${posIcon(pos,17)}${POSNAME[pos]}</div><div class="plist">${grp.map(playerRow).join('')}</div>`;
   }).join('');
   const sea=(D.seasons[t.nick]||[]).map(s=>`<div class="sea"><div class="y">${s.y}</div><div class="p">${s.pts}</div><div class="r">#${s.rank} of ${s.of}</div></div>`).join('');
   const leaders=['PTS','G','A','GB','CT','SV'].map(k=>{
     const c=roster.filter(p=>p.s[k]).sort((a,b)=>parseFloat(b.s[k])-parseFloat(a.s[k]))[0];
-    return c?`<button class="prow" onclick="go('#p/${c.id}')"><div class="jn" style="font-size:11px;font-weight:800;color:#6c7889;letter-spacing:.06em">${k}</div>${avatar(c)}<div class="pmain"><div class="pn">${esc(c.n)}</div><div class="pm">${esc(c.s[k])} ${k.toLowerCase()}</div></div></button>`:'';
+    return c?`<button class="prow" onclick="go('#p/${c.id}')"><div class="jn" style="font-size:11px;font-weight:800;color:var(--dim2);letter-spacing:.06em">${k}</div>${avatar(c)}<div class="pmain"><div class="pn">${esc(c.n)}</div><div class="pm"><span>${esc(c.s[k])} ${k.toLowerCase()}</span></div></div></button>`:'';
   }).filter(Boolean).join('');
   return `<div class="wrap">
     <a class="back" href="#teams">&larr; All teams</a>
@@ -420,13 +588,12 @@ function vTeam(name){
     <h2 class="sec">Regular season points scored</h2>
     <div class="seasons">${sea}</div>
     <h2 class="sec">This weekend</h2>
-    <a class="gcard" href="#matchup/${encodeURIComponent(g.teams[0])}" style="display:block">
+    <a class="gcard" href="#matchup/${encodeURIComponent(g.teams[0])}">
       <div class="when">${gameLabel(g)}</div>
-      <div class="gvs"><img class="lg" src="${logo(name)}" alt=""><span class="nm">${esc(t.city)}</span>
-      <span class="x">vs</span><img class="lg" src="${logo(opp)}" alt=""><span class="nm">${esc(T[opp].city)}</span></div>
+      <div class="gvs">${teamLogo(name,40)}<span class="nm">${esc(t.city)}</span><span class="x">vs</span>${teamLogo(opp,40)}<span class="nm">${esc(T[opp].city)}</span></div>
     </a>
     <h2 class="sec">2026 results</h2>
-    <div class="tbl"><table><thead><tr><th>Date</th><th>Opponent</th><th></th><th>Score</th></tr></thead><tbody>${resultRows(name)}</tbody></table></div>
+    ${scoreList(name)}
     <h2 class="sec">2026 team leaders</h2>
     <div class="plist">${leaders}</div>
     <h2 class="sec">Gameday roster</h2>
@@ -434,18 +601,16 @@ function vTeam(name){
   </div>`;
 }
 
-/* MATCHUP */
+/* ============ MATCHUP ============ */
 function vMatchup(a){
   const g=D.games.find(x=>x.teams[0]===a); if(!g) return vHome();
   const [x,y]=g.teams;
   const side=t=>{
     const h=D.hist[t];
-    return `<a href="#team/${encodeURIComponent(t)}" class="tcard" style="background:${grad(t)};min-height:auto;padding:22px 18px">
-      <img src="${logo(t)}" alt="" style="height:60px">
-      <div style="text-align:center"><div class="cn">${esc(T[t].city)}</div><div class="nn">${esc(T[t].nick)}</div></div>
-      <div class="rec">${REC[t]} &middot; ${T[t].conf}</div>
-      <div class="rec" style="opacity:.75">${h.titles.length? h.titles.join(', ')+' champion'+(h.titles.length>1?'s':'') : 'No titles yet'}</div>
-    </a>`;
+    return `<a href="#team/${encodeURIComponent(t)}" class="tcard" style="background:${grad(t)}">
+      <img src="${logo(t)}" alt="">
+      <div><div class="cn">${esc(T[t].city)}</div><div class="nn">${esc(T[t].nick)}</div>
+      <div class="rec">${REC[t]} &middot; ${h.titles.length?h.titles.join(', ')+' champion'+(h.titles.length>1?'s':''):'No titles yet'}</div></div></a>`;
   };
   const meet=(D.results[x]||[]).filter(r=>r[1]===y);
   return `<div class="wrap">
@@ -453,75 +618,91 @@ function vMatchup(a){
     <div class="eyebrow">${gameLabel(g)}</div>
     <h1 class="page">${esc(T[x].city)} vs. ${esc(T[y].city)}</h1>
     <div class="tgrid">${side(x)}${side(y)}</div>
-    <h2 class="sec">Head to head in 2026</h2>
-    ${meet.length
-      ? `<div class="tbl"><table><thead><tr><th>Date</th><th>Result for ${esc(T[x].city)}</th><th>Score</th></tr></thead><tbody>
-         ${meet.map(r=>`<tr><td style="color:#6c7889">${r[0]}</td><td class="${r[2]==='W'?'win':'loss'}">${r[2]==='W'?'Win':'Loss'}</td><td>${r[3]}</td></tr>`).join('')}
-         </tbody></table></div>`
-      : `<div class="note">First meeting of the season between these two.</div>`}
+    <h2 class="sec">When they met in 2026</h2>
+    ${meet.length?scoreList(x,meet):`<div class="note">First meeting of the season between these two.</div>`}
     <h2 class="sec">${esc(T[x].city)} 2026 results</h2>
-    <div class="tbl"><table><tbody>${resultRows(x)}</tbody></table></div>
+    ${scoreList(x)}
     <h2 class="sec">${esc(T[y].city)} 2026 results</h2>
-    <div class="tbl"><table><tbody>${resultRows(y)}</tbody></table></div>
+    ${scoreList(y)}
     <h2 class="sec">Rosters</h2>
     <div class="tgrid">
-      <a class="tcard" href="#team/${encodeURIComponent(x)}" style="background:${grad(x)};min-height:100px"><div class="nn">${esc(T[x].city)} roster</div></a>
-      <a class="tcard" href="#team/${encodeURIComponent(y)}" style="background:${grad(y)};min-height:100px"><div class="nn">${esc(T[y].city)} roster</div></a>
+      <a class="tcard" href="#team/${encodeURIComponent(x)}" style="background:${grad(x)};min-height:84px">${teamLogo(x,42)}<div class="nn">${esc(T[x].city)} roster</div></a>
+      <a class="tcard" href="#team/${encodeURIComponent(y)}" style="background:${grad(y)};min-height:84px">${teamLogo(y,42)}<div class="nn">${esc(T[y].city)} roster</div></a>
     </div>
   </div>`;
 }
 
-/* COLLEGES */
-let CQ='';
+/* ============ COLLEGES ============ */
+let CQ='', CSORT='count';
+function colleges(){
+  const m={};
+  P.forEach(p=>{(m[p.college]=m[p.college]||{name:p.college,logo:p.clogo,ps:[]}).ps.push(p);});
+  return Object.values(m);
+}
+function setSort(s){CSORT=s;paintC();}
 function vColleges(){
   return `<div class="wrap"><div class="pagehead"><h1 class="page">Colleges</h1></div>
   <input class="txtsearch" style="margin-top:0" id="cq" placeholder="Search a college" value="${esc(CQ)}" oninput="CQ=this.value;paintC()">
+  <div class="sortrow">
+    <button id="sc" onclick="setSort('count')">Most players</button>
+    <button id="sn" onclick="setSort('name')">A&ndash;Z</button>
+  </div>
   <div id="cres"></div></div>`;
 }
 function paintC(){
   const box=$('#cres'); if(!box) return;
-  const map={};
-  P.forEach(p=>{(map[p.college]=map[p.college]||[]).push(p);});
-  let names=Object.keys(map).filter(c=>c.toLowerCase().includes(CQ.trim().toLowerCase()));
-  names.sort((a,b)=>map[b].length-map[a].length || a.localeCompare(b));
-  box.innerHTML=`<div class="count">${names.length} colleges &middot; ${P.length} players</div>
-   <div class="cgrid">${names.map(c=>{
-    const ps=map[c].slice().sort((a,b)=>a.n.localeCompare(b.n));
-    return `<div class="ccard"><div class="ch"><div class="cnm">${esc(c)}</div><div class="ccnt">${ps.length}</div></div>
-      ${ps.map(p=>`<button class="cp" onclick="go('#p/${p.id}')">
-        <span class="cdot" style="background:${T[p.team].c2}"></span>
-        <span class="cnn">${esc(p.n)}</span>
-        <span class="cyy">${esc(T[p.team].abbr)} &middot; '${p.grad.slice(2)}</span></button>`).join('')}
-    </div>`;}).join('')}</div>`;
+  $('#sc').className=CSORT==='count'?'on':''; $('#sn').className=CSORT==='name'?'on':'';
+  let list=colleges().filter(c=>c.name.toLowerCase().includes(CQ.trim().toLowerCase()));
+  list.sort(CSORT==='count'?(a,b)=>b.ps.length-a.ps.length||a.name.localeCompare(b.name):(a,b)=>a.name.localeCompare(b.name));
+  box.innerHTML=`<div class="count">${list.length} colleges &middot; ${P.length} players</div>
+   <div class="sgrid">${list.map(c=>`<a class="scard" href="#college/${encodeURIComponent(c.name)}">
+      <div class="lw">${c.logo?`<img src="assets/schools/${c.logo}" alt="" loading="lazy">`:`<div class="ph">${esc(initials(c.name)||c.name.slice(0,2).toUpperCase())}</div>`}</div>
+      <div class="snm">${esc(c.name)}</div>
+      <div class="scnt">${c.ps.length} player${c.ps.length===1?'':'s'}</div></a>`).join('')}</div>`;
+}
+function vCollege(name){
+  const c=colleges().find(x=>x.name===name); if(!c) return vColleges();
+  const ps=c.ps.slice().sort((a,b)=>(b.grad||'').localeCompare(a.grad||'')||a.n.localeCompare(b.n));
+  const yrs={}; ps.forEach(p=>{const y=p.grad||'Unlisted';(yrs[y]=yrs[y]||[]).push(p);});
+  const years=Object.keys(yrs).sort((a,b)=>b.localeCompare(a));
+  return `<div class="wrap">
+    <a class="back" href="#colleges">&larr; All colleges</a>
+    <div class="chead">
+      ${c.logo?`<img src="assets/schools/${c.logo}" alt="">`:`<div class="ph" style="width:66px;height:66px;border-radius:16px;background:var(--panel2);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--dim2)">${esc(initials(c.name)||c.name.slice(0,2).toUpperCase())}</div>`}
+      <div><div class="cnm">${esc(c.name)}</div><div class="ccc">${c.ps.length} player${c.ps.length===1?'':'s'} in Columbus this weekend</div></div>
+    </div>
+    ${years.map(y=>`<h2 class="sec">${y==='Unlisted'?'Class year unlisted':"Class of "+y}</h2>
+      <div class="plist">${yrs[y].map(playerRow).join('')}</div>`).join('')}
+  </div>`;
 }
 
-/* STANDINGS */
+/* ============ STANDINGS ============ */
 function vStandings(){
   const tbl=conf=>`<div class="tbl"><table>
     <thead><tr><th>${conf}</th><th>W</th><th>L</th><th>Strk</th><th>PF</th><th>PA</th><th>+/-</th></tr></thead>
     <tbody>${D.standings[conf].map(r=>{
-      const known=!!T[r[0]];
-      return `<tr><td><div class="tname ${known?'here':''}">${known?`<img src="${logo(r[0])}" alt="">`:'<span class="dot" style="background:#39424f"></span>'}${esc(r[0])}</div></td>
+      const k=!!T[r[0]];
+      return `<tr><td>${k?`<a class="tname here" href="#team/${encodeURIComponent(r[0])}">${teamLogo(r[0],24)}${esc(r[0])}</a>`
+        :`<div class="tname" style="color:var(--dim2)">${teamLogo(r[0],24)}${esc(r[0])}</div>`}</td>
       <td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td>
       <td class="${r[6]>0?'win':(r[6]<0?'loss':'')}">${r[6]>0?'+':''}${r[6]}</td></tr>`;}).join('')}</tbody></table></div>`;
-  const h2hRows=TEAMLIST.map(a=>`<tr><td><div class="tname"><img src="${logo(a)}" alt="">${esc(T[a].abbr)}</div></td>
-    ${TEAMLIST.map(b=>a===b?'<td style="color:#39424f">&mdash;</td>':`<td>${D.h2h[a][b]||'&ndash;'}</td>`).join('')}</tr>`).join('');
+  const h2h=TEAMLIST.map(a=>`<tr><td><div class="tname">${teamLogo(a,24)}${esc(T[a].abbr)}</div></td>
+    ${TEAMLIST.map(b=>a===b?'<td style="color:var(--dim2)">&mdash;</td>':`<td>${D.h2h[a][b]||'&ndash;'}</td>`).join('')}</tr>`).join('');
   return `<div class="wrap"><div class="pagehead"><h1 class="page">Standings</h1></div>
-    <div class="count">Gold rows are here in Columbus this weekend</div>
+    <div class="count">Highlighted teams are here in Columbus this weekend</div>
     ${tbl('East')}<div style="height:12px"></div>${tbl('West')}
     <h2 class="sec">Head to head, 2026</h2>
-    <div class="tbl"><table><thead><tr><th></th>${TEAMLIST.map(t=>`<th>${esc(T[t].abbr)}</th>`).join('')}</tr></thead>
-      <tbody>${h2hRows}</tbody></table></div>
+    <div class="tbl"><table><thead><tr><th></th>${TEAMLIST.map(t=>`<th>${esc(T[t].abbr)}</th>`).join('')}</tr></thead><tbody>${h2h}</tbody></table></div>
     <h2 class="sec">This weekend</h2>
-    <div class="games">${gameCards(true)}</div>
+    ${gameCards(true)}
     <h2 class="sec">Every PLL champion</h2>
     <div class="tbl"><table><thead><tr><th>Year</th><th>Champion</th><th>Runner-up</th><th>Score</th></tr></thead>
-      <tbody>${D.champs.map(c=>`<tr><td style="color:#6c7889">${c[0]}</td><td style="font-weight:700">${esc(c[1])}</td>
-        <td style="color:#9aa6b5">${esc(c[2])}</td><td>${esc(c[3])}</td></tr>`).join('')}</tbody></table></div>
+      <tbody>${D.champs.map(c=>`<tr><td style="color:var(--dim2)">${c[0]}</td><td style="font-weight:700">${esc(c[1])}</td>
+        <td style="color:var(--dim)">${esc(c[2])}</td><td>${esc(c[3])}</td></tr>`).join('')}</tbody></table></div>
   </div>`;
 }
 
-/* INFO */
+/* ============ INFO ============ */
 function vInfo(){
   const e=D.event;
   const box=(k,v)=>`<div class="ib"><div class="k">${k}</div><div class="v">${v}</div></div>`;
@@ -534,7 +715,7 @@ function vInfo(){
       ${box('Need help on site','Text <a href="sms:4242574467">'+esc(e.text)+'</a><br><a href="mailto:'+e.email+'">'+esc(e.email)+'</a>')}
     </div>
     <h2 class="sec">Schedule</h2>
-    <div class="games">${gameCards()}</div>
+    ${gameCards()}
     <h2 class="sec">Good to know</h2>
     ${q('What can I bring in?',esc(e.bags))}
     ${q('Can I leave and come back?',esc(e.reentry))}
@@ -547,23 +728,26 @@ function vInfo(){
   </div>`;
 }
 
-/* router */
+/* ============ router ============ */
 function go(h){location.hash=h;}
+const TITLES={home:'Columbus',find:'Find a Player',teams:'Teams',colleges:'Colleges',standings:'Standings',info:'Event Info'};
 function route(){
   const h=location.hash.replace(/^#/,'')||'home';
   const k=h.split('/')[0], arg=decodeURIComponent(h.split('/').slice(1).join('/'));
-  let html, navKey=k;
+  let html,nk=k,title=TITLES[k]||'Columbus';
   if(k==='find') html=vFind();
   else if(k==='teams') html=vTeams();
-  else if(k==='team'){html=vTeam(arg);navKey='teams';}
-  else if(k==='matchup'){html=vMatchup(arg);navKey='home';}
+  else if(k==='team'){html=vTeam(arg);nk='teams';title=T[arg]?T[arg].city:'Teams';}
+  else if(k==='matchup'){html=vMatchup(arg);nk='home';title='Matchup';}
   else if(k==='colleges') html=vColleges();
+  else if(k==='college'){html=vCollege(arg);nk='colleges';title=arg;}
   else if(k==='standings') html=vStandings();
   else if(k==='info') html=vInfo();
-  else if(k==='p'){html=vPlayer(arg);navKey='find';}
+  else if(k==='p'){html=vPlayer(arg);nk='find';title=P[+arg]?P[+arg].n:'Player';}
   else html=vHome();
   $('#app').innerHTML=html;
-  document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+navKey));
+  $('#mtitle').textContent=title;
+  document.querySelectorAll('#rnav a').forEach(a=>a.classList.toggle('on',a.dataset.k===nk));
   if(k==='find') paint();
   if(k==='colleges') paintC();
   window.scrollTo(0,0);

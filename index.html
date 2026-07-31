@@ -15,6 +15,7 @@
   --g-hotel:linear-gradient(135deg,#8b5cf6,#6d28d9); --c-hotel:#7c3aed;
   --g-pack:linear-gradient(135deg,#10b981,#047857); --c-pack:#059669;
   --g-links:linear-gradient(135deg,#06b6d4,#0e7490); --c-links:#0891b2;
+  --g-game:linear-gradient(135deg,#ec4899,#be185d); --c-game:#db2777;
   --g-contact:linear-gradient(135deg,#475569,#1e293b); --c-contact:#475569;
 }
 [data-theme="dark"]{
@@ -67,6 +68,7 @@ a{color:inherit}
 .tile.hotel{background:var(--g-hotel);box-shadow:0 10px 30px rgba(124,58,237,.35)}
 .tile.pack{background:var(--g-pack);box-shadow:0 10px 30px rgba(5,150,105,.35)}
 .tile.links{background:var(--g-links);box-shadow:0 10px 30px rgba(8,145,178,.35)}
+.tile.game{background:var(--g-game);box-shadow:0 10px 30px rgba(219,39,119,.35)}
 .tile.contact{background:var(--g-contact);box-shadow:0 10px 30px rgba(30,41,59,.35)}
 
 /* ---------- Cards & shared ---------- */
@@ -108,6 +110,16 @@ label.pk.done .pk-text{text-decoration:line-through}
 .pk-progress{height:10px;background:var(--border);border-radius:6px;overflow:hidden;margin:6px 0 4px}
 .pk-bar{height:100%;width:0%;background:var(--g-pack);border-radius:6px;transition:width .25s}
 
+.alert{background:color-mix(in srgb,#e5322d 9%,transparent);border:1px solid color-mix(in srgb,#e5322d 40%,transparent);border-radius:14px;padding:16px 18px;margin-bottom:16px}
+.alert .a-t{font-weight:700;font-size:15px;margin-bottom:4px;color:#c81e1e}
+[data-theme="dark"] .alert .a-t{color:#ff8b8b}
+.alert .a-b{font-size:14px;color:var(--text-2)}
+.kv{display:flex;gap:14px;padding:11px 0;border-top:1px solid var(--border);font-size:14.5px}
+.kv:first-of-type{border-top:none}
+.kv .kk{min-width:96px;font-weight:600;color:var(--c-game);flex-shrink:0}
+.kv .vv{color:var(--text-2)}
+.kv .vv b{color:var(--text);font-weight:600;display:block}
+
 /* ---------- Links ---------- */
 .linkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
 .linkcard{display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;text-decoration:none;box-shadow:var(--shadow);transition:transform .12s}
@@ -142,6 +154,7 @@ label.pk.done .pk-text{text-decoration:line-through}
       <a href="#itinerary"><span class="dot" style="background:var(--c-itin)"></span>Itinerary</a>
       <a href="#schedule"><span class="dot" style="background:var(--c-sched)"></span>Schedule &amp; Tickets</a>
       <a href="#drive"><span class="dot" style="background:var(--c-drive)"></span>The Drive</a>
+      <a href="#gameday"><span class="dot" style="background:var(--c-game)"></span>Gameday &amp; Parking</a>
       <a href="#hotel"><span class="dot" style="background:var(--c-hotel)"></span>Hotel</a>
       <a href="#packing"><span class="dot" style="background:var(--c-pack)"></span>Packing List</a>
       <a href="#links"><span class="dot" style="background:var(--c-links)"></span>Links</a>
@@ -167,6 +180,7 @@ label.pk.done .pk-text{text-decoration:line-through}
         <a class="tile itin" href="#itinerary"><span class="t-icon">🗓️</span><span class="t-name">Itinerary</span></a>
         <a class="tile sched" href="#schedule"><span class="t-icon">🥍</span><span class="t-name">Schedule &amp; Tickets</span></a>
         <a class="tile drive" href="#drive"><span class="t-icon">🚗</span><span class="t-name">The Drive</span></a>
+        <a class="tile game" href="#gameday"><span class="t-icon">🎟️</span><span class="t-name">Gameday &amp; Parking</span></a>
         <a class="tile hotel" href="#hotel"><span class="t-icon">🏨</span><span class="t-name">Hotel</span></a>
         <a class="tile pack" href="#packing"><span class="t-icon">🎒</span><span class="t-name">Packing List</span></a>
         <a class="tile links" href="#links"><span class="t-icon">🔗</span><span class="t-name">Links</span></a>
@@ -188,7 +202,9 @@ label.pk.done .pk-text{text-decoration:line-through}
         <div class="tl-item"><div class="tl-time">~9:45 AM</div><div class="tl-what">Stop: Buc-ee's Huber Heights</div>
           <div class="tl-sub">Bathroom, snacks, Supercharger on site · I-70 exit 38</div></div>
         <div class="tl-item"><div class="tl-time">~11:15 AM</div><div class="tl-what">Arrive at Ohio State Lacrosse Stadium</div>
-          <div class="tl-sub">630 Irving Schottenstein Dr, Columbus · park and settle in</div></div>
+          <div class="tl-sub">630 Irving Schottenstein Dr · Buckeye Lot, $10 at the gate · <a href="#gameday">Parking &amp; gates</a></div></div>
+        <div class="tl-item"><div class="tl-time">11:30 AM</div><div class="tl-what">Gates open</div>
+          <div class="tl-sub">West side of the stadium · 60 minutes before first faceoff</div></div>
         <div class="tl-item"><div class="tl-time">12:30 PM</div><div class="tl-what">Denver Outlaws vs Maryland Whipsnakes</div></div>
         <div class="tl-item"><div class="tl-time">3:00 PM</div><div class="tl-what">Carolina Chaos vs Philadelphia Waterdogs</div></div>
         <div class="tl-item"><div class="tl-time">After final game</div><div class="tl-what">Meet &amp; Greet on the field</div>
@@ -202,7 +218,10 @@ label.pk.done .pk-text{text-decoration:line-through}
       <div class="tl">
         <div class="tl-item"><div class="tl-time">~10:45 AM</div><div class="tl-what">Pack up and check out</div>
           <div class="tl-sub">Check-out is before 12:00 PM · load the car</div></div>
-        <div class="tl-item"><div class="tl-time">~11:15 AM</div><div class="tl-what">Arrive at the stadium</div></div>
+        <div class="tl-item"><div class="tl-time">~10:45 AM</div><div class="tl-what">Arrive at the stadium</div>
+          <div class="tl-sub">Earlier than Saturday — the Stars &amp; Stripes fan fest runs outside the gates</div></div>
+        <div class="tl-item"><div class="tl-time">11:00 AM</div><div class="tl-what">Gates open</div>
+          <div class="tl-sub">60 minutes before the noon faceoff</div></div>
         <div class="tl-item"><div class="tl-time">12:00 PM</div><div class="tl-what">Stars &amp; Stripes Classic</div>
           <div class="tl-sub">Special event · Navy Seals vs Green Berets</div></div>
         <div class="tl-item"><div class="tl-time">3:00 PM</div><div class="tl-what">New York Atlas vs California Redwoods</div></div>
@@ -252,7 +271,9 @@ label.pk.done .pk-text{text-decoration:line-through}
       <div class="card">
         <h3>Tickets are in Ticketmaster</h3>
         <ul class="plain">
-          <li>Open the Ticketmaster app before you leave — tickets are mobile only</li>
+          <li>Tickets are mobile only — load them before you leave</li>
+          <li>PLL app: open the <b>+More</b> menu and tap "My Tickets"</li>
+          <li>The Gameday Hub in the PLL app is powered by Ticketmaster</li>
           <li>Account number: 1471854</li>
           <li>Order total: $326.00 · paid in full</li>
         </ul>
@@ -296,6 +317,68 @@ label.pk.done .pk-text{text-decoration:line-through}
       </div>
     </section>
 
+
+    <!-- ================= GAMEDAY ================= -->
+    <section class="page" id="gameday">
+      <div class="page-head" style="--pg:var(--g-game);--pglow:rgba(219,39,119,.3)">
+        <div class="eyebrow">Ohio State Lacrosse Stadium</div>
+        <div class="page-title">Gameday &amp; Parking</div>
+      </div>
+
+      <div class="alert">
+        <div class="a-t">Lacrosse balls are not allowed in</div>
+        <div class="a-b">Sticks are fine, balls are not. Bring James's stick or jersey to get signed instead of a ball — and save wall ball for the hotel lot, not between games.</div>
+      </div>
+
+      <div class="card">
+        <h3>Parking — $10, pay at arrival</h3>
+        <div class="kv"><span class="kk">Buckeye Lot</span><span class="vv"><b>$10 · on-site</b>North of the stadium, off Fred Taylor Dr</span></div>
+        <div class="kv"><span class="kk">Gray Lot</span><span class="vv"><b>$10</b>South, off Irving Schottenstein Dr</span></div>
+        <div class="kv"><span class="kk">Bring</span><span class="vv"><b>$20 cash</b>Both days, in case cards are slow at the booth</span></div>
+        <div class="kv"><span class="kk">Rideshare</span><span class="vv"><b>Irving Schottenstein Dr</b>Drop-off and pick-up right by the entrance</span></div>
+        <div class="kv"><span class="kk">Bus</span><span class="vv"><b>Route 1</b>To Olentangy River Rd &amp; Ackerman Rd / Burnbrae Ave</span></div>
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=630+Irving+Schottenstein+Dr+Columbus+OH+43210" target="_blank">📍 630 Irving Schottenstein Dr</a>
+      </div>
+
+      <div class="card">
+        <h3>Gates open 60 minutes before first faceoff</h3>
+        <div class="kv"><span class="kk">Location</span><span class="vv"><b>West side of the stadium</b></span></div>
+        <div class="kv"><span class="kk">Saturday</span><span class="vv"><b>11:30 AM</b>First faceoff 12:30 PM</span></div>
+        <div class="kv"><span class="kk">Sunday</span><span class="vv"><b>11:00 AM</b>Stars &amp; Stripes Classic at 12:00 PM</span></div>
+      </div>
+
+      <div class="card">
+        <h3>Bag policy</h3>
+        <ul class="plain">
+          <li>Clear bags up to 12" x 12" x 6"</li>
+          <li>Wristlet or handheld wallet up to 6.5" x 4.5", with or without a strap</li>
+          <li>Lacrosse sticks allowed — lacrosse balls are not</li>
+          <li>Full prohibited items list lives in the Gameday Hub</li>
+        </ul>
+        <div class="small" style="margin-top:10px">Water bottles and folding chairs still aren't spelled out — worth a text to Guest Services if you want them.</div>
+      </div>
+
+      <div class="card">
+        <h3>On-site — worth getting there early</h3>
+        <ul class="plain">
+          <li><b>Sunday:</b> Stars &amp; Stripes fan fest just outside the gates before the noon game</li>
+          <li>Fastest Shot Challenge — radar clocks your shot</li>
+          <li>Whirlpool Advantage Dive — recreate the game-saving play</li>
+          <li>Merch: Nike jerseys and Flagship Trading Cards</li>
+          <li>Food and drink are sold on-site, so the cooler can stay in the car</li>
+          <li>Sign in to PLL Nation before gameday to be entered to win a player-used Cascade helmet</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Guest Services</h3>
+        <ul class="plain">
+          <li>Guest Services Tent on-site</li>
+          <li>Or text the PLL team at <a href="tel:4242574467" style="color:var(--c-game);font-weight:600">(424) 257-4467</a></li>
+        </ul>
+      </div>
+    </section>
+
     <!-- ================= HOTEL ================= -->
     <section class="page" id="hotel">
       <div class="page-head" style="--pg:var(--g-hotel);--pglow:rgba(124,58,237,.3)">
@@ -335,20 +418,22 @@ label.pk.done .pk-text{text-decoration:line-through}
       <div id="pkList">
 
       <div class="pk-title">Essentials</div>
-      <label class="pk"><input type="checkbox" data-k="tickets"><span class="pk-text">Phones charged, Ticketmaster app signed in</span></label>
+      <label class="pk"><input type="checkbox" data-k="tickets"><span class="pk-text">Phones charged · PLL app signed in, tickets loaded</span></label>
       <label class="pk"><input type="checkbox" data-k="wallet"><span class="pk-text">Wallet + ID</span></label>
       <label class="pk"><input type="checkbox" data-k="chargers"><span class="pk-text">Phone chargers + battery pack</span></label>
 
       <div class="pk-title">Meet &amp; Greet</div>
       <label class="pk"><input type="checkbox" data-k="sharpie"><span class="pk-text">Sharpies (2 — one always dies)</span></label>
-      <label class="pk"><input type="checkbox" data-k="sign"><span class="pk-text">James's jersey or ball to get signed</span></label>
+      <label class="pk"><input type="checkbox" data-k="sign"><span class="pk-text">James's jersey or stick to get signed — balls aren't allowed in</span></label>
 
       <div class="pk-title">Stadium</div>
       <label class="pk"><input type="checkbox" data-k="sunscreen"><span class="pk-text">Sunscreen</span></label>
       <label class="pk"><input type="checkbox" data-k="hats"><span class="pk-text">Hats + sunglasses</span></label>
       <label class="pk"><input type="checkbox" data-k="water"><span class="pk-text">Water bottles</span></label>
-      <label class="pk"><input type="checkbox" data-k="ponchos"><span class="pk-text">Rain ponchos (check the forecast)</span></label>
-      <label class="pk"><input type="checkbox" data-k="clearbag"><span class="pk-text">Clear bag — check stadium bag policy before packing a backpack</span></label>
+      <label class="pk"><input type="checkbox" data-k="ponchos"><span class="pk-text">Rain ponchos — 85% rain both days, and umbrellas don't get in</span></label>
+      <label class="pk"><input type="checkbox" data-k="rainjacket"><span class="pk-text">Rain jackets — one each</span></label>
+      <label class="pk"><input type="checkbox" data-k="shoes2"><span class="pk-text">Second pair of shoes each — Saturday's won't dry overnight</span></label>
+      <label class="pk"><input type="checkbox" data-k="clearbag"><span class="pk-text">Clear bag, 12" x 12" x 6" max — no backpacks</span></label>
 
       <div class="pk-title">Overnight</div>
       <label class="pk"><input type="checkbox" data-k="clothes"><span class="pk-text">Change of clothes for Sunday</span></label>
@@ -358,7 +443,8 @@ label.pk.done .pk-text{text-decoration:line-through}
       <div class="pk-title">Car</div>
       <label class="pk"><input type="checkbox" data-k="charge"><span class="pk-text">Charge the Tesla to 90–100% Friday night</span></label>
       <label class="pk"><input type="checkbox" data-k="snacks"><span class="pk-text">Road snacks</span></label>
-      <label class="pk"><input type="checkbox" data-k="stick"><span class="pk-text">James's stick — wall ball between games</span></label>
+      <label class="pk"><input type="checkbox" data-k="stick"><span class="pk-text">James's stick — allowed inside, but leave the balls in the car</span></label>
+      <label class="pk"><input type="checkbox" data-k="parkcash"><span class="pk-text">$20 cash for parking — $10 a day</span></label>
 
       </div>
     </section>
@@ -389,6 +475,12 @@ label.pk.done .pk-text{text-decoration:line-through}
         <div class="muted" style="margin-bottom:6px">Super helpful and responsive — typically replies same day.</div>
         <div class="contact-row"><span class="ci">📞</span><a href="tel:3105043625">(310) 504-3625</a></div>
         <div class="contact-row"><span class="ci">✉️</span><a href="mailto:ttiger@premierlacrosseleague.com">ttiger@premierlacrosseleague.com</a></div>
+      </div>
+      <div class="card">
+        <h3>Guest Services — gameday</h3>
+        <div class="muted" style="margin-bottom:6px">For app logins, ticket problems, or finding anything in the stadium.</div>
+        <div class="contact-row"><span class="ci">💬</span><a href="tel:4242574467">(424) 257-4467</a></div>
+        <div class="contact-row"><span class="ci">⛺</span><span>Guest Services Tent, on-site</span></div>
       </div>
       <div class="card">
         <h3>Premier Lacrosse League</h3>

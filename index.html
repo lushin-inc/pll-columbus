@@ -512,12 +512,12 @@ function vHome(){
   ];
   const ar='<svg class="ar" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
   return `<div class="wrap">
-    <h2 class="sec" style="margin-top:28px">The trip</h2>
-    <div class="hub2">${WNAV.map(([h,l,i],x)=>`<a class="tile t${x+6}" href="#${h}"><span class="ic">${i}</span><span class="tt">${l}</span></a>`).join('')}</div>
-    <h2 class="sec">Gameday</h2>
+    <h2 class="sec" style="margin-top:28px">Gameday</h2>
     <div class="hub" style="padding-top:14px">${tiles.map(([h,c,l,i])=>`<a class="tile ${c}" href="#${h}"><span class="ic">${i}</span><span class="tt">${l}</span>${ar}</a>`).join('')}</div>
     <h2 class="sec">This weekend at Ohio State</h2>
     ${gameCards()}
+    <h2 class="sec">The trip</h2>
+    <div class="hub2">${WNAV.map(([h,l,i],x)=>`<a class="tile t${x+6}" href="#${h}"><span class="ic">${i}</span><span class="tt">${l}</span></a>`).join('')}</div>
   </div>`;
 }
 

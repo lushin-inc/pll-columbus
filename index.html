@@ -619,7 +619,8 @@ function vTeams(){
 }
 function vTeamLite(name){
   const o=ANY[name];
-  const row=(D.standings[o.conf]||[]).find(r=>r[0]===name)||[];
+  const conf=o.conf||(D.standings.East.some(r=>r[0]===name)?'East':'West');
+  const row=(D.standings[conf]||[]).find(r=>r[0]===name)||[];
   const box=(k,v)=>`<div class="ib"><div class="k">${k}</div><div class="v">${v}</div></div>`;
   return `<div class="wrap">
     <a class="back" href="#teams">&larr; All teams</a>
@@ -637,8 +638,8 @@ function vTeamLite(name){
       const mine=t===name?r:[r[0],t,r[2]==='W'?'L':'W',r[3].split('-').reverse().join('-')];
       return `<h2 class="sec">Friday in Columbus</h2><div class="slist">${scoreRow(name,mine)}</div>`;})()}
     <div class="infogrid" style="margin-top:14px">
-      ${box('Record',REC[name]+' &middot; '+o.conf)}
-      ${box('Streak',esc(row[3]||'&mdash;'))}
+      ${box('Record',REC[name]+' &middot; '+conf)}
+      ${box('Streak',row[3]?esc(row[3]):'&mdash;')}
       ${box('Points for',row[4]!=null?row[4]:'&mdash;')}
       ${box('Points against',row[5]!=null?row[5]:'&mdash;')}
       ${box('Goal diff',row[6]!=null?(row[6]>0?'+':'')+row[6]:'&mdash;')}

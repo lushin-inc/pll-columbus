@@ -5,25 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
 <title>PLL Columbus Weekend</title>
-
-<!-- Link preview (iMessage, Slack, texts). If the site ever moves, change the base URL
-     on the two lines marked BASE URL below and nothing else. -->
-<meta name="description" content="Ohio State Lacrosse Stadium, August 1–2. Schedule, rosters, tickets, hotel, the drive and the packing list.">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="PLL Columbus Weekend">
-<meta property="og:title" content="PLL Columbus Weekend">
-<meta property="og:description" content="Ohio State Lacrosse Stadium, August 1–2. Schedule, rosters, tickets, hotel, the drive and the packing list.">
-<meta property="og:url" content="https://lushin-inc.github.io/pll-columbus/"><!-- BASE URL -->
-<meta property="og:image" content="https://lushin-inc.github.io/pll-columbus/og.png"><!-- BASE URL -->
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="PLL Columbus Weekend at Ohio State Lacrosse Stadium">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="PLL Columbus Weekend">
-<meta name="twitter:description" content="Ohio State Lacrosse Stadium, August 1–2. Schedule, rosters, tickets, hotel, the drive and the packing list.">
-<meta name="twitter:image" content="https://lushin-inc.github.io/pll-columbus/og.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -444,15 +425,11 @@ const NAV=[
   ['standings','Standings','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>'],
   ['info','Event Info','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>']
 ];
-/* The trip — weekend pages. Edit labels/keys here; views are below near vItinerary(). */
+/* The trip — weekend pages. Edit labels/keys here; views are below near vPlan(). */
 const WNAV=[
-  ['itinerary','Itinerary','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 9h18"/></svg>'],
+  ['plan','Sunday Plan','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 9h18"/></svg>'],
   ['tickets','Tickets','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 0 0 6v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3a2 2 0 0 0 0-6V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1z"/><path d="M13 5v2M13 11v2M13 17v2"/></svg>'],
-  ['drive','The Drive','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.7-4.6A2 2 0 0 1 8.6 5h6.8a2 2 0 0 1 1.9 1.4L19 11"/><rect x="3" y="11" width="18" height="6" rx="2"/><path d="M7.5 14h.01M16.5 14h.01"/><path d="M5 17v2M19 17v2"/></svg>'],
-  ['hotel','Hotel','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M2 17h20"/><path d="M6 10V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/></svg>'],
-  ['packing','Packing List','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12l3 3 5-6"/></svg>'],
-  ['links','Links','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>'],
-  ['contact','PLL Contact','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>']
+  ['links','Links','<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>']
 ];
 const navLink=([k,l,i])=>`<a href="#${k}" data-k="${k}" onclick="closeDrawer()">${i}<span class="lbl">${l}</span></a>`;
 $('#rnav').innerHTML=NAV.map(navLink).join('')+'<div class="rgrp">The Trip</div>'+WNAV.map(navLink).join('');
@@ -531,12 +508,24 @@ function vHome(){
   ];
   const ar='<svg class="ar" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
   return `<div class="wrap">
-    <h2 class="sec" style="margin-top:28px">Gameday</h2>
-    <div class="hub" style="padding-top:14px">${tiles.map(([h,c,l,i])=>`<a class="tile ${c}" href="#${h}"><span class="ic">${i}</span><span class="tt">${l}</span>${ar}</a>`).join('')}</div>
-    <h2 class="sec">This weekend at Ohio State</h2>
-    ${gameCards()}
-    <h2 class="sec">The trip</h2>
+    <h2 class="sec" style="margin-top:28px">The trip</h2>
     <div class="hub2">${WNAV.map(([h,l,i],x)=>`<a class="tile t${x+6}" href="#${h}"><span class="ic">${i}</span><span class="tt">${l}</span></a>`).join('')}</div>
+    <h2 class="sec">Gameday</h2>
+    <div class="hub" style="padding-top:14px">${tiles.map(([h,c,l,i])=>`<a class="tile ${c}" href="#${h}"><span class="ic">${i}</span><span class="tt">${l}</span>${ar}</a>`).join('')}</div>
+    <h2 class="sec">Sunday at Ohio State</h2>
+    <div class="games">
+      <div class="gcard"><div class="when">Sun, Aug 2 &middot; 12:00 PM</div>
+        <div class="gvs"><span class="nm">Stars &amp; Stripes Classic</span></div>
+        <div class="pm2" style="margin-top:8px">Special event · Navy Seals vs Green Berets</div></div>
+      <a class="gcard" href="#matchup/${encodeURIComponent(D.games[2].teams[0])}">
+        <div class="when">${gameLabel(D.games[2])}</div>
+        <div class="gvs">${teamLogo(D.games[2].teams[0],40)}<span class="nm">${esc(T[D.games[2].teams[0]].city)}</span>
+        <span class="x">vs</span>${teamLogo(D.games[2].teams[1],40)}<span class="nm">${esc(T[D.games[2].teams[1]].city)}</span></div></a>
+    </div>
+    <h2 class="sec">Saturday finals</h2>
+    <div class="slist">${SATURDAY.map(([t,r])=>scoreRow(t,r)).join('')}</div>
+    <h2 class="sec">Friday finals</h2>
+    <div class="slist">${FRIDAY.map(([t,r])=>scoreRow(t,r)).join('')}</div>
   </div>`;
 }
 
@@ -627,11 +616,7 @@ function vTeams(){
     <div><div class="cn">${esc(ANY[t].city)}</div><div class="nn">${esc(ANY[t].nick)}</div>
     <div class="rec">${REC[t]} &middot; ${ANY[t].conf}</div></div></a>`;
   return `<div class="wrap"><div class="pagehead"><h1 class="page">Teams</h1></div>
-  <h2 class="sec" style="margin-top:0">In Columbus this weekend</h2>
-  <div class="tgrid">${TEAMLIST.map(card).join('')}</div>
-  <h2 class="sec">Rest of the league</h2>
-  <div class="tgrid">${Object.keys(D.other).map(card).join('')}</div>
-  </div>`;
+  <div class="tgrid">${TEAMLIST.concat(Object.keys(D.other)).map(card).join('')}</div></div>`;
 }
 function vTeamLite(name){
   const o=ANY[name];
@@ -646,7 +631,12 @@ function vTeamLite(name){
         <div class="trophy"><span class="tro">${REC[name]} in 2026</span></div>
       </div>
     </div>
-    <div class="note">Not in Columbus this weekend, so no roster here. Records and head-to-head are in Standings.</div>
+    <div class="note">Played Friday night in Columbus, but not on this weekend's slate, so no roster here.</div>
+    ${(()=>{const fr=FRIDAY.find(([t,r])=>t===name||r[1]===name);
+      if(!fr) return '';
+      const [t,r]=fr;
+      const mine=t===name?r:[r[0],t,r[2]==='W'?'L':'W',r[3].split('-').reverse().join('-')];
+      return `<h2 class="sec">Friday in Columbus</h2><div class="slist">${scoreRow(name,mine)}</div>`;})()}
     <div class="infogrid" style="margin-top:14px">
       ${box('Record',REC[name]+' &middot; '+o.conf)}
       ${box('Streak',esc(row[3]||'&mdash;'))}
@@ -837,31 +827,25 @@ const MAPS_BACK='https://www.google.com/maps/dir/?api=1&origin=630+Irving+Schott
 const MAPS_BUCEES='https://www.google.com/maps/search/?api=1&query=Buc-ee%27s+Huber+Heights+OH';
 const MAPS_HOTEL='https://www.google.com/maps/search/?api=1&query=The+Blackwell+Inn+2110+Tuttle+Park+Pl+Columbus+OH';
 const ITIN=[
-  ['Saturday · August 1',[
-    ['8:00 AM','Leave home',`321 E 45th St, Indianapolis → I-70 East · <a href="${MAPS_OUT}" target="_blank">Route</a>`],
-    ['~9:45 AM','Stop: Buc-ee\'s Huber Heights','Bathroom, snacks, Supercharger on site · I-70 exit 38'],
-    ['~11:15 AM','Arrive at Ohio State Lacrosse Stadium','630 Irving Schottenstein Dr, Columbus · park and settle in'],
-    ['12:30 PM','Denver Outlaws vs Maryland Whipsnakes',''],
-    ['3:00 PM','Carolina Chaos vs Philadelphia Waterdogs',''],
-    ['After final game','Meet &amp; Greet on the field','With players from the winning team · bring the sharpie'],
-    ['~6:00 PM','Check in at The Blackwell','2110 Tuttle Park Pl · 4-minute drive from the stadium'],
-    ['Evening','Dinner in Columbus','']
-  ]],
   ['Sunday · August 2',[
-    ['~10:45 AM','Pack up and check out','Check-out is before 12:00 PM · load the car'],
-    ['~11:15 AM','Arrive at the stadium',''],
+    ['8:30 AM','Up, breakfast, pack the room',''],
+    ['9:50 AM','Load the car and check out','Check-out is before 12:00 PM'],
+    ['10:00 AM','Charge at the Convention Center Supercharger',`70 E Goodale St · 72 kW stalls, ~40 min to ~80% · coffee in the Short North while it charges · <a href="https://www.google.com/maps/search/?api=1&query=Tesla+Supercharger+70+E+Goodale+St+Columbus+OH" target="_blank">Map</a> · if the car's nav shows a 250 kW site nearby, use that instead (~15 min)`],
+    ['11:00 AM','Head to the stadium','~3 miles · parked and in by 11:15'],
     ['12:00 PM','Stars &amp; Stripes Classic','Special event · Navy Seals vs Green Berets'],
     ['3:00 PM','New York Atlas vs California Redwoods',''],
     ['After final game','Meet &amp; Greet on the field',''],
-    ['~6:00 PM','Drive home',`Optional charge at Buc-ee's on the way back · home ~9:00 PM · <a href="${MAPS_BACK}" target="_blank">Route home</a>`]
+    ['~6:00 PM','Drive home',`At ~80% it's nonstop, home ~9:00 PM · backup: Buc-ee's Supercharger 70 mi out if the morning charge got skipped · <a href="${MAPS_BACK}" target="_blank">Route home</a>`]
   ]]
 ];
-const PACK=[
-  ['Essentials',[['ph','Phones charged, Ticketmaster app signed in'],['wa','Wallet + ID'],['ch','Phone chargers + battery pack']]],
-  ['Meet & Greet',[['sh','Sharpies (2 — one always dies)'],['sg','James\'s jersey or ball to get signed']]],
-  ['Stadium',[['su','Sunscreen'],['ha','Hats + sunglasses'],['wb','Water bottles'],['po','Rain ponchos (check the forecast)'],['cb','Clear bag — check stadium bag policy before packing a backpack']]],
-  ['Overnight',[['cl','Change of clothes for Sunday'],['to','Toiletries'],['me','Any meds']]],
-  ['Car',[['tc','Charge the Tesla to 90–100% Friday night'],['sn','Road snacks'],['st','James\'s stick — wall ball between games']]]
+/* Finals in Columbus, winner's perspective. One line per game; edit here. */
+const SATURDAY=[
+  ['Denver Outlaws',['8/1','Maryland Whipsnakes','W','14-13']],
+  ['Philadelphia Waterdogs',['8/1','Carolina Chaos','W','13-6']]
+];
+const FRIDAY=[
+  ['Carolina Chaos',['7/31','California Redwoods','W','12-10']],
+  ['Boston Cannons',['7/31','Utah Archers','W','11-7']]
 ];
 const LINKS=[
   ['https://lushin-inc.github.io/pll-2026/','PLL Stats Hub'],
@@ -872,17 +856,31 @@ const LINKS=[
   ['https://tv.youtube.com/browse/UCw1u5DMCt1Quc-c2aruL2rQ','YouTube TV — PLL']
 ];
 
-function vItinerary(){
-  return `<div class="wrap"><div class="pagehead"><h1 class="page">Itinerary</h1></div>
-    ${ITIN.map(([day,rows])=>`<h2 class="sec">${day}</h2>
-      <div class="itl">${rows.map(([t,w,s])=>`<div class="itli">
+function vPlan(){
+  const box=(k,v)=>`<div class="ib"><div class="k">${k}</div><div class="v">${v}</div></div>`;
+  return `<div class="wrap"><div class="pagehead"><h1 class="page">Sunday Plan</h1></div>
+    ${ITIN.map(([day,rows])=>`<div class="itl" style="margin-top:4px">${rows.map(([t,w,s])=>`<div class="itli">
         <div class="itlt">${t}</div><div class="itlw">${w}</div>${s?`<div class="itls">${s}</div>`:''}
       </div>`).join('')}</div>`).join('')}
+    <h2 class="sec">The drive home</h2>
+    <div class="infogrid">
+      ${box('To','321 E 45th St, Indianapolis, IN 46205')}
+      ${box('Distance','~178 miles, almost all I-70 West')}
+      ${box('Time','~2 hr 45 min nonstop')}
+      ${box('Charging','At ~80% after the morning charge, no stop needed — home with ~20% to spare')}
+    </div>
+    <a class="abtn" href="${MAPS_BACK}" target="_blank">Route home</a>
+    <h2 class="sec">If the morning charge got skipped</h2>
+    <ul class="pl">
+      <li><b>Buc-ee's Huber Heights Supercharger</b> — 70 miles out, right off I-70 (exit 38), 250 kW</li>
+      <li>You'd roll in around 18–20% · 15–20 minute stop covers the rest</li>
+    </ul>
+    <a class="abtn" href="${MAPS_BUCEES}" target="_blank">Buc-ee's in Maps</a>
   </div>`;
 }
 function vTickets(){
   const g=D.games;
-  const mg=(seat)=>`<a class="gcard" href="#itinerary"><div class="when">After final game</div>
+  const mg=(seat)=>`<a class="gcard" href="#plan"><div class="when">After final game</div>
     <div class="gvs"><span class="nm">Meet &amp; Greet on the field</span></div>
     <div class="pm2" style="margin-top:8px">With players from the winning team · Section GA1, Row GA0, Seat ${seat}</div></a>`;
   const gc=(game)=>`<a class="gcard" href="#matchup/${encodeURIComponent(game.teams[0])}">
@@ -909,95 +907,16 @@ function vTickets(){
     </ul>
   </div>`;
 }
-function vDrive(){
-  const box=(k,v)=>`<div class="ib"><div class="k">${k}</div><div class="v">${v}</div></div>`;
-  return `<div class="wrap"><div class="pagehead"><h1 class="page">The Drive</h1></div>
-    <div class="infogrid">
-      ${box('From','321 E 45th St, Indianapolis, IN 46205')}
-      ${box('To','Ohio State Lacrosse Stadium<br>630 Irving Schottenstein Dr, Columbus, OH 43210')}
-      ${box('Distance','~178 miles, almost all I-70 East')}
-      ${box('Time','~2 hr 45 min straight through · ~3 hr 15 min with a stop')}
-    </div>
-    <a class="abtn" href="${MAPS_OUT}" target="_blank">Open route in Maps</a>
-    <h2 class="sec">Charging — Model X Long Range</h2>
-    <ul class="pl">
-      <li>178 miles is well inside a full charge — <b>charge to 90–100% Friday night and you can skip the stop entirely</b></li>
-      <li>You'd arrive with roughly 35–40% left, enough to reach a Columbus charger anytime</li>
-    </ul>
-    <h2 class="sec">If you want to stop anyway</h2>
-    <ul class="pl">
-      <li><b>Best stop:</b> Buc-ee's Huber Heights, OH — Supercharger on site, ~110 miles in, right off I-70 (exit 38)</li>
-      <li><b>Backup:</b> Meijer Supercharger — 2507 Chester Blvd, Richmond, IN, ~70 miles in</li>
-      <li><b>Near the stadium:</b> Superchargers at the Greater Columbus Convention Center, ~3 miles away</li>
-    </ul>
-    <a class="abtn" href="${MAPS_BUCEES}" target="_blank">Buc-ee's in Maps</a>
-  </div>`;
-}
-function vHotel(){
-  const box=(k,v)=>`<div class="ib"><div class="k">${k}</div><div class="v">${v}</div></div>`;
-  return `<div class="wrap"><div class="pagehead"><h1 class="page">Hotel</h1></div>
-    <h2 class="sec" style="margin-top:0">The Blackwell Inn &amp; Pfahl Conference Center</h2>
-    <ul class="pl">
-      <li>2110 Tuttle Park Pl, Columbus, OH 43210</li>
-      <li><a href="tel:6142474000" style="font-weight:700;color:var(--accent)">(614) 247-4000</a></li>
-      <li>0.9 miles from the stadium — about a 4-minute drive</li>
-    </ul>
-    <a class="abtn" href="${MAPS_HOTEL}" target="_blank">Open in Maps</a>
-    <div class="infogrid" style="margin-top:22px">
-      ${box('Check-in','Sat, Aug 1<br>after 3:00 PM')}
-      ${box('Check-out','Sun, Aug 2<br>before 12:00 PM')}
-      ${box('Nights','Saturday only')}
-    </div>
-  </div>`;
-}
-function vPacking(){
-  return `<div class="wrap"><div class="pagehead"><h1 class="page">Packing List</h1></div>
-    <div class="pkbar"><div class="pkfill" id="pkfill"></div></div>
-    <div class="count" id="pkcount" style="margin:0"></div>
-    ${PACK.map(([grp,items])=>`<div class="pkg">${grp}</div>
-      ${items.map(([k,label])=>`<label class="pk"><input type="checkbox" data-k="${k}" onchange="pkTgl(this)"><span class="pt">${label}</span></label>`).join('')}`).join('')}
-  </div>`;
-}
-const PKS={};   /* in-memory state; localStorage is just the backup */
-function pkTgl(box){ PKS[box.dataset.k]=box.checked; store('pk-'+box.dataset.k, box.checked?'1':undefined); pkPaint(); }
-function pkPaint(){
-  const boxes=[...document.querySelectorAll('label.pk input')]; if(!boxes.length) return;
-  let done=0;
-  boxes.forEach(b=>{
-    if(!(b.dataset.k in PKS)) PKS[b.dataset.k]=read('pk-'+b.dataset.k)==='1';
-    b.checked=PKS[b.dataset.k];
-    b.closest('label').classList.toggle('done',b.checked); if(b.checked)done++;
-  });
-  $('#pkfill').style.width=Math.round(done/boxes.length*100)+'%';
-  $('#pkcount').textContent=done+' of '+boxes.length+' packed';
-}
 function vLinks(){
   const ic='<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>';
   return `<div class="wrap"><div class="pagehead"><h1 class="page">Links</h1></div>
     <div class="lgrid" style="margin-top:0">${LINKS.map(([u,l])=>`<a class="lcard" href="${u}" target="_blank"><span class="ic">${ic}</span>${l}</a>`).join('')}</div>
   </div>`;
 }
-function vContact(){
-  const box=(k,v)=>`<div class="ib"><div class="k">${k}</div><div class="v">${v}</div></div>`;
-  return `<div class="wrap"><div class="pagehead"><h1 class="page">PLL Contact</h1></div>
-    <h2 class="sec" style="margin-top:0">Travis Tiger</h2>
-    <div class="count" style="margin:0 0 12px">PLL contact for Columbus weekend — super helpful, typically replies same day</div>
-    <div class="infogrid">
-      ${box('Phone','<a href="tel:3105043625" style="font-weight:700">(310) 504-3625</a>')}
-      ${box('Email','<a href="mailto:ttiger@premierlacrosseleague.com" style="font-weight:700">ttiger@premierlacrosseleague.com</a>')}
-    </div>
-    <h2 class="sec">Premier Lacrosse League</h2>
-    <div class="infogrid">
-      ${box('Ticket questions','<a href="tel:3109281107" style="font-weight:700">310-928-1107</a>')}
-      ${box('Ticketmaster account','1471854')}
-    </div>
-  </div>`;
-}
-
 /* ============ router ============ */
 function go(h){location.hash=h;}
 const TITLES={home:'Columbus',find:'Find a Player',teams:'Teams',colleges:'Colleges',standings:'Standings',info:'Event Info',
-  itinerary:'Itinerary',tickets:'Tickets',drive:'The Drive',hotel:'Hotel',packing:'Packing List',links:'Links',contact:'PLL Contact'};
+  plan:'Sunday Plan',tickets:'Tickets',links:'Links'};
 function route(){
   const h=location.hash.replace(/^#/,'')||'home';
   const k=h.split('/')[0], arg=decodeURIComponent(h.split('/').slice(1).join('/'));
@@ -1010,13 +929,9 @@ function route(){
   else if(k==='college'){html=vCollege(arg);nk='colleges';title=arg;}
   else if(k==='standings') html=vStandings();
   else if(k==='info') html=vInfo();
-  else if(k==='itinerary') html=vItinerary();
+  else if(k==='plan'||k==='itinerary'||k==='drive'){html=vPlan();nk='plan';title='Sunday Plan';}
   else if(k==='tickets') html=vTickets();
-  else if(k==='drive') html=vDrive();
-  else if(k==='hotel') html=vHotel();
-  else if(k==='packing') html=vPacking();
   else if(k==='links') html=vLinks();
-  else if(k==='contact') html=vContact();
   else if(k==='p'){html=vPlayer(arg);nk='find';title=P[+arg]?P[+arg].n:'Player';}
   else html=vHome();
   $('#app').innerHTML=html;
@@ -1024,7 +939,6 @@ function route(){
   document.querySelectorAll('#rnav a').forEach(a=>a.classList.toggle('on',a.dataset.k===nk));
   if(k==='find') paint();
   if(k==='colleges') paintC();
-  if(k==='packing') pkPaint();
   window.scrollTo(0,0);
 }
 addEventListener('hashchange',route);
